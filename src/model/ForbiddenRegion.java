@@ -16,7 +16,7 @@ public class ForbiddenRegion {
 
 
     public void computeForbiddenRegion(PlacementDomain placementDomain, int width, int height) {
-        PlacementDomain result = new PlacementDomain(width, height);
+
         int xMin = placementDomain.getMaxX() - width + 1;
         int xMax = placementDomain.getMinX() + placementDomain.getWidth() - 1;
         if (xMin > xMax) {
