@@ -25,9 +25,4 @@ public class Constraint {
     public void orderForbiddenRegion(){
         Collections.sort(forbiddenRegions);
     }
-
-    public ForbiddenRegion getFirstForbiddenRegion(){
-        return this.forbiddenRegions.get(0);
-    }
-
 }

@@ -18,4 +18,12 @@ public class DataStructure {
         this.domain = domain;
         this.placementDomain = placementDomain;
     }
+
+    public List<Constraint> getConstraints(){
+        return this.constraints;
+    }
+
+    public Domain getDomain(){
+        return this.domain;
+    }
 }

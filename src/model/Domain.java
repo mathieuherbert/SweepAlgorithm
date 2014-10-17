@@ -18,19 +18,19 @@ public class Domain {
         this.maxX = maxX;
         this.maxY = maxY;
     }
-    private int getMinX(){
+    public int getMinX(){
         return minX;
     }
 
-    private int getMaxX(){
+    public int getMaxX(){
         return  this.maxX;
     }
 
-    private int getMinY(){
+    public int getMinY(){
         return this.minY;
     }
 
-    private int getMaxY(){
+    public int getMaxY(){
         return this.maxY;
     }
 }
