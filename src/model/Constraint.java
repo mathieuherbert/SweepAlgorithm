@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +20,14 @@ public class Constraint {
 
     public List<ForbiddenRegion> getForbiddenRegions(){
         return this.forbiddenRegions;
+    }
+
+    public void orderForbiddenRegion(){
+        Collections.sort(forbiddenRegions);
+    }
+
+    public ForbiddenRegion getFirstForbiddenRegion(){
+        return this.forbiddenRegions.get(0);
     }
 
 }

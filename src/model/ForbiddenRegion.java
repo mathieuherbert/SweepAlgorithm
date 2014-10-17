@@ -3,7 +3,7 @@ package model;
 /**
  * Created by math.herbert on 13/10/14.
  */
-public class ForbiddenRegion {
+public class ForbiddenRegion implements Comparable{
     private int minX;
     private int maxX;
 
@@ -81,6 +81,26 @@ public class ForbiddenRegion {
         result = 31 * result + minY;
         result = 31 * result + maxY;
         return result;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(! (o instanceof ForbiddenRegion)){
+            return -1;
+        }
+        if(minX < ((ForbiddenRegion) o).minX){
+            return -1;
+        }else if(minX > ((ForbiddenRegion) o).minX){
+            return 1;
+        }else {
+            if(minY < ((ForbiddenRegion) o).minY){
+                return -1;
+            }else if(minY > ((ForbiddenRegion) o).minY){
+                return 1;
+            }else {
+                return 0;
+            }
+        }
     }
 }
 
