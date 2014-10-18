@@ -23,6 +23,5 @@ public class ForbiddenRegionTest {
         forbiddenRegionExpected.setMaxY(8);
         assertEquals(forbiddenRegionExpected, forbiddenRegion);
 
-
     }
 }

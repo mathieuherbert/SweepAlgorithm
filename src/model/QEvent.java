@@ -58,6 +58,13 @@ public class QEvent implements Comparable {
         if(! (o instanceof QEvent)){
             return -1;
         }
-        return forbiddenRegion.compareTo(((QEvent) o).forbiddenRegion);
+        //return forbiddenRegion.compareTo(((QEvent) o).forbiddenRegion);
+        if(getMinX() < ((QEvent) o).getMinX()){
+            return -1;
+        }else if (getMinX() > ((QEvent) o).getMinX()){
+            return 1;
+        }else {
+            return 0;
+        }
     }
 }

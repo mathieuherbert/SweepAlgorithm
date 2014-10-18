@@ -11,12 +11,12 @@ public class DataStructure {
 
     private Domain domain;
 
-    private PlacementDomain placementDomain;
 
-    public DataStructure(List<Constraint> constraints, Domain domain, PlacementDomain placementDomain){
+
+    public DataStructure(List<Constraint> constraints, Domain domain){
         this.constraints = constraints;
         this.domain = domain;
-        this.placementDomain = placementDomain;
+
     }
 
     public List<Constraint> getConstraints(){
