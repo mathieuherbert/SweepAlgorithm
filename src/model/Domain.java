@@ -33,4 +33,29 @@ public class Domain {
     public int getMaxY(){
         return this.maxY;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Domain domain = (Domain) o;
+
+        if (maxX != domain.maxX) return false;
+        if (maxY != domain.maxY) return false;
+        if (minX != domain.minX) return false;
+        if (minY != domain.minY) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = minX;
+        result = 31 * result + maxX;
+        result = 31 * result + minY;
+        result = 31 * result + maxY;
+        return result;
+    }
 }

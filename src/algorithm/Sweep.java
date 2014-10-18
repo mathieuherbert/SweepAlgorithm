@@ -28,16 +28,18 @@ public class Sweep {
         while(itConstraints.hasNext()){
             Constraint cons = itConstraints.next();
             cons.orderForbiddenRegion();
-            Iterator<ForbiddenRegion> forbiddenRegionIterator  = cons.getForbiddenRegions().iterator();
+            Iterator<ForbiddenRegion> forbiddenRegionIterator  = cons.getFirstForbiddenRegions().iterator();
             while(forbiddenRegionIterator.hasNext()){
                 ForbiddenRegion forbiddenRegion = forbiddenRegionIterator.next();
-                int minValue = Math.max(structure.getDomain().getMinX(), forbiddenRegion.getMinX()) ;
+               /* int minValue = Math.max(structure.getDomain().getMinX(), forbiddenRegion.getMinX()) ;
                 QEvent event = new QEvent(true, forbiddenRegion,cons, minValue);
                 qEvents.add(event);
                 if(forbiddenRegion.getMaxX()+1<= structure.getDomain().getMaxX()){
                     QEvent eventEnd = new QEvent(false, forbiddenRegion,cons, forbiddenRegion.getMaxX()+1);
                     qEvents.add(event);
-                }
+                }*/
+                //replace by
+                addForbiddenRegionToQEvent(forbiddenRegion, cons);
             }
 
         }
@@ -54,7 +56,8 @@ public class Sweep {
             while (qEvents.size() != 0){
                 int delta = qEvents.get(0).getMinX();
                 while(qEvents.size() > 0 && qEvents.get(0).getMinX() == delta){
-                    handleEvent(qEvents.get(0));
+
+                    handleEvent(qEvents.get(0), pStatus);
                 }
                 List<Integer> possibleValues = new ArrayList<Integer>();
                 for(int i =0; i< pStatus.length; i++){
@@ -71,7 +74,47 @@ public class Sweep {
         throw new Exception("no point was found");
     }
 
-    public void handleEvent(QEvent qEvent){
+    public void handleEvent(QEvent qEvent, int[] pStatus){
+        qEvents.remove(0);
+        int l = Math.max(structure.getDomain().getMinY(), qEvent.getForbiddenRegion().getMinY());
+        int u = Math.min(structure.getDomain().getMaxY(), qEvent.getForbiddenRegion().getMaxY());
+        if(qEvent.isStart()){ 
+            //add 1 to pStatus[u<=i<=i]
+            int dif = l -u;
+            for(int i = 0; i<dif; i++){
+                pStatus[structure.getDomain().getMinY() - (i+l)] += 1;
+            }
+            if(!isQEventsContainsEventForConstraint(qEvent.getConstraint())){
+                Iterator<ForbiddenRegion> forbiddenRegionIterator  = qEvent.getConstraint().getNextForbiddenRegions().iterator();
+                while(forbiddenRegionIterator.hasNext()){
+                    ForbiddenRegion forbiddenRegion = forbiddenRegionIterator.next();
+                    addForbiddenRegionToQEvent(forbiddenRegion, qEvent.getConstraint());
+                }
+            }
 
+        }else{
+            int dif = l -u;
+            for(int i = 0; i<dif; i++){
+                pStatus[structure.getDomain().getMinY() - (i+l)] += -1;
+            }
+        }
+    }
+
+    public void addForbiddenRegionToQEvent(ForbiddenRegion forbiddenRegion, Constraint cons){
+        int minValue = Math.max(structure.getDomain().getMinX(), forbiddenRegion.getMinX()) ;
+        QEvent event = new QEvent(true, forbiddenRegion,cons, minValue);
+        qEvents.add(event);
+        if(forbiddenRegion.getMaxX()+1<= structure.getDomain().getMaxX()){
+            QEvent eventEnd = new QEvent(false, forbiddenRegion,cons, forbiddenRegion.getMaxX()+1);
+            qEvents.add(event);
+        }
+    }
+    public boolean isQEventsContainsEventForConstraint(Constraint constraint){
+        for(int i = 0; i<qEvents.size(); i++){
+            if(qEvents.get(i).getConstraint().equals(constraint)){
+                return true;
+            }
+        }
+        return false;
     }
 }

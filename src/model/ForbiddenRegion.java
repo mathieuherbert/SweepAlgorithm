@@ -57,6 +57,10 @@ public class ForbiddenRegion implements Comparable{
         return minY;
     }
 
+    public int getMaxY() {
+        return maxY;
+    }
+
     public void setMaxY(int maxY) {
         this.maxY = maxY;
     }
