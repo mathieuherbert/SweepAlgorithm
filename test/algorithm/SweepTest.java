@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Created by math.herbert on 18/10/14.
@@ -50,7 +51,11 @@ public class SweepTest {
         DataStructure structure = new DataStructure(constraints,domain);
         Sweep sweep = new Sweep(structure);
         Point point = sweep.findMinimum();
+
+        Point expectedPoint = new Point(3,8);
+       // assertSame(expectedPoint, point);
         System.out.println(point);
+
     }
 
     @Test

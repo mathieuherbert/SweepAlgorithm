@@ -16,12 +16,16 @@ public class Sweep {
 
     DataStructure structure;
 
+    int nbZeroInPStatus;
+
     public Sweep(DataStructure structure){
         this.structure = structure;
         qEvents = new ArrayList<QEvent>();
+        nbZeroInPStatus = 0;
     }
 
     public Point findMinimum() throws Exception {
+
         Iterator<Constraint> itConstraints = structure.getConstraints().iterator();
 
         //for each constraint add forbidden regions to a qevent
@@ -48,6 +52,7 @@ public class Sweep {
         if(qEvents.size() == 0 || qEvents.get(0).getMinX() > structure.getDomain().getMinX() ){
             return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY())) + structure.getDomain().getMinY());
         } else {
+            nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY();
             int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()];
             for(int i= 0; i < pStatus.length; i++){
                 pStatus[i] = 0;
@@ -59,16 +64,21 @@ public class Sweep {
 
                     handleEvent(qEvents.get(0), pStatus);
                 }
-                List<Integer> possibleValues = new ArrayList<Integer>();
-                for(int i =0; i< pStatus.length; i++){
-                    if(pStatus[i] == 0){
-                        possibleValues.add(i);
+                if(nbZeroInPStatus > 0){
+                    int[] possibleValues = new int[nbZeroInPStatus];
+                    int compteur = 0;
+                    for(int i =0; i< pStatus.length; i++){
+                        if(pStatus[i] == 0){
+                            possibleValues[compteur] = i;
+                            compteur++;
+                        }
                     }
-                }
-                if(possibleValues.size() > 0){
-                    int y = possibleValues.get((int)(Math.random()*possibleValues.size()))+structure.getDomain().getMinY();
+                    int y = possibleValues[(int)(Math.random()*possibleValues.length)]+structure.getDomain().getMinY();
                     return  new Point(delta, y);
                 }
+
+
+
             }
         }
         throw new Exception("no point was found");
@@ -82,7 +92,11 @@ public class Sweep {
             //add 1 to pStatus[u<=i<=i]
             int dif = u -l+1;
             for(int i = 0; i<dif; i++){
-                pStatus[(i+l) - structure.getDomain().getMinY()] += 1;
+                pStatus[(i+l) - structure.getDomain().getMinY()] +=1  ;
+
+                if(pStatus[(i+l) - structure.getDomain().getMinY()] == 1){
+                    nbZeroInPStatus--;
+                }
             }
             if(!isQEventsContainsEventForConstraint(qEvent.getConstraint())){
                 Iterator<ForbiddenRegion> forbiddenRegionIterator  = qEvent.getConstraint().getNextForbiddenRegions().iterator();
@@ -96,6 +110,9 @@ public class Sweep {
             int dif = u - l +1;
             for(int i = 0; i<dif; i++){
                 pStatus[ (i+l) - structure.getDomain().getMinY()] -= 1;
+                if(pStatus[ (i+l) - structure.getDomain().getMinY()] == 0){
+                    nbZeroInPStatus++;
+                }
             }
         }
     }
