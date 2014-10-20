@@ -18,8 +18,10 @@ public class NonOverLapLeft {
 
     public int algo() {
         int c = execute();
+        System.out.println("c : "+c);
         while (c != 0 && c != Integer.MAX_VALUE){
             c = execute();
+            System.out.println("c : "+c);
         }
         return c;
     }
@@ -43,13 +45,14 @@ public class NonOverLapLeft {
                     DataStructure structure = new DataStructure(constraints, domain);
                      Sweep sweep = new Sweep(structure);
                     Point point = sweep.findMinimum();
-                    System.out.println("rectangle "+(i+1)+" :" +point);
-                    System.out.println(point.getY());
-                    System.out.println(checkIfInForbiddenRegion(point.getX(), point.getY(), constraints));
+                    //System.out.println("rectangle "+(i+1)+" :" +point);
+                   // System.out.println(point.getY());
+                    //System.out.println(checkIfInForbiddenRegion(point.getX(), point.getY(), constraints));
                     rectangles[i].setWitness(point.getY());
                     if(point.isR() == false){
                         return  Integer.MAX_VALUE;
                     }else if(point.getX() != domain.getMinX()){
+                        System.out.println("i " + i);
                         System.out.println("domain.getMinX()" + domain.getMinX());
                         System.out.println("point.getX()" + point.getX());
                         c++;

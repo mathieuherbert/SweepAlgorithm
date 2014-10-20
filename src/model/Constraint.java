@@ -49,10 +49,10 @@ public class Constraint {
             return  firstForbiddenRegions;
         }
         for (int i = pos; i<forbiddenRegions.size(); i++){
+            currentPosition = i;
             if(Math.max(forbiddenRegions.get(i).getMinX(), domain.getMinX()) == currentXMin){
                 firstForbiddenRegions.add(forbiddenRegions.get(i));
             }else{
-                currentPosition = i;
                 break;
             }
         }
