@@ -35,8 +35,25 @@ public class Domain {
     }
 
 
+    public void setMinX(int minX) {
+        this.minX = minX;
+    }
+
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public void setMinY(int minY) {
+        this.minY = minY;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

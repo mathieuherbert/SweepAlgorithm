@@ -14,9 +14,11 @@ public class Constraint {
     private int currentXMin = Integer.MAX_VALUE;
     private int currentPosition = Integer.MAX_VALUE;
 
-    public Constraint(Domain domain){
+    private String name;
+    public Constraint(Domain domain, String name){
         this.forbiddenRegions =  new ArrayList<ForbiddenRegion>();
         this.domain = domain;
+        this.name = name;
     }
 
     public void addForbiddenRegion(ForbiddenRegion forbiddenRegion){
@@ -33,12 +35,25 @@ public class Constraint {
     //the forbiddenRegions need to be ordered before executing this method
     public List<ForbiddenRegion> getFirstForbiddenRegions(){
         List<ForbiddenRegion> firstForbiddenRegions = new ArrayList<ForbiddenRegion>();
-        currentXMin = Math.max(forbiddenRegions.get(0).getMinX(), domain.getMinX());
+        boolean find = false;
+        currentXMin = -1;
+        int pos = -1;
         for (int i = 0; i<forbiddenRegions.size(); i++){
+            if(forbiddenRegions.get(i).getMaxX() >= domain.getMinX() && forbiddenRegions.get(i).getMinX() <= domain.getMaxX()  ){
+                currentXMin = Math.max(forbiddenRegions.get(i).getMinX(), domain.getMinX());
+                pos = i;
+                break;
+            }
+        }
+        if(pos == -1){
+            return  firstForbiddenRegions;
+        }
+        for (int i = pos; i<forbiddenRegions.size(); i++){
             if(Math.max(forbiddenRegions.get(i).getMinX(), domain.getMinX()) == currentXMin){
                 firstForbiddenRegions.add(forbiddenRegions.get(i));
             }else{
                 currentPosition = i;
+                break;
             }
         }
         return firstForbiddenRegions;
@@ -61,6 +76,15 @@ public class Constraint {
             }
         }
         return nextForbiddenRegions;
+    }
+
+    public boolean checkIfInForbiddenRegions(int x, int y){
+        for (ForbiddenRegion forbiddenRegion : forbiddenRegions){
+            if(forbiddenRegion.checkIfInForbiddenRegion(x,y)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -87,4 +111,5 @@ public class Constraint {
         result = 31 * result + currentPosition;
         return result;
     }
+
 }

@@ -24,7 +24,7 @@ public class Sweep {
         nbZeroInPStatus = 0;
     }
 
-    public Point findMinimum() throws Exception {
+    public Point findMinimum()  {
 
         Iterator<Constraint> itConstraints = structure.getConstraints().iterator();
 
@@ -50,7 +50,7 @@ public class Sweep {
         Collections.sort(qEvents);
         //if qevent is empty or the first x is free
         if(qEvents.size() == 0 || qEvents.get(0).getMinX() > structure.getDomain().getMinX() ){
-            return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY())) + structure.getDomain().getMinY());
+            return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY())) + structure.getDomain().getMinY(), true);
         } else {
             nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1;
             int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1];
@@ -74,14 +74,14 @@ public class Sweep {
                         }
                     }
                     int y = possibleValues[(int)(Math.random()*possibleValues.length)]+structure.getDomain().getMinY();
-                    return  new Point(delta, y);
+                    return  new Point(delta, y, true);
                 }
 
 
 
             }
         }
-        throw new Exception("no point was found");
+        return new Point (0,0,false);
     }
 
     public void handleEvent(QEvent qEvent, int[] pStatus){

@@ -9,9 +9,11 @@ public class Point {
 
     private int y;
 
-    public Point(int x, int y) {
+    private boolean r;
+    public Point(int x, int y, boolean r) {
         this.x = x;
         this.y = y;
+        this.r = r;
     }
 
     public int getX() {
@@ -30,12 +32,12 @@ public class Point {
         this.y = y;
     }
 
-    @Override
-    public String toString() {
-        return "Point{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+    public boolean isR() {
+        return r;
+    }
+
+    public void setR(boolean r) {
+        this.r = r;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class Point {
 
         Point point = (Point) o;
 
+        if (r != point.r) return false;
         if (x != point.x) return false;
         if (y != point.y) return false;
 
@@ -55,6 +58,16 @@ public class Point {
     public int hashCode() {
         int result = x;
         result = 31 * result + y;
+        result = 31 * result + (r ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                ", r=" + r +
+                '}';
     }
 }

@@ -34,6 +34,14 @@ public class ForbiddenRegion implements Comparable{
         setMaxY(yMax);
 
     }
+
+    public boolean checkIfInForbiddenRegion(int x, int y ){
+        if(x >= minX && x <= maxX && y >= minY && y <= maxY){
+            return true;
+        }
+        return false;
+
+    }
     public int getMinX() {
         return minX;
     }
