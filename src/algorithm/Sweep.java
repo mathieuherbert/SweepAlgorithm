@@ -52,8 +52,8 @@ public class Sweep {
         if(qEvents.size() == 0 || qEvents.get(0).getMinX() > structure.getDomain().getMinX() ){
             return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY())) + structure.getDomain().getMinY());
         } else {
-            nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY();
-            int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()];
+            nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1;
+            int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1];
             for(int i= 0; i < pStatus.length; i++){
                 pStatus[i] = 0;
             }

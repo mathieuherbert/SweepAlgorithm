@@ -15,7 +15,7 @@ import static org.junit.Assert.assertSame;
 public class SweepTest {
     @Test
     public void testFindMinimum() throws Exception {
-        Domain domain = new Domain(1,8,1,9);
+        Domain domain = new Domain(1,8,1,8);
         List<Constraint> constraints = new ArrayList<Constraint>();
         PlacementDomain placement = new PlacementDomain(1,8,1,8,5,4);
 
