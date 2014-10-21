@@ -35,14 +35,6 @@ public class Sweep {
             Iterator<ForbiddenRegion> forbiddenRegionIterator  = cons.getFirstForbiddenRegions().iterator();
             while(forbiddenRegionIterator.hasNext()){
                 ForbiddenRegion forbiddenRegion = forbiddenRegionIterator.next();
-               /* int minValue = Math.max(structure.getDomain().getMinX(), forbiddenRegion.getMinX()) ;
-                QEvent event = new QEvent(true, forbiddenRegion,cons, minValue);
-                qEvents.add(event);
-                if(forbiddenRegion.getMaxX()+1<= structure.getDomain().getMaxX()){
-                    QEvent eventEnd = new QEvent(false, forbiddenRegion,cons, forbiddenRegion.getMaxX()+1);
-                    qEvents.add(event);
-                }*/
-                //replace by
                 addForbiddenRegionToQEvent(forbiddenRegion, cons);
             }
 
@@ -54,10 +46,9 @@ public class Sweep {
         } else {
             nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1;
             int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1];
-            for(int i= 0; i < pStatus.length; i++){
-                pStatus[i] = 0;
+            for(int pStatut : pStatus){
+                pStatut = 0;
             }
-            //TODO manage 1 to PStatus
             while (qEvents.size() != 0){
                 int delta = qEvents.get(0).getMinX();
                 while(qEvents.size() > 0 && Math.max(structure.getDomain().getMinX(),qEvents.get(0).getMinX()) == delta){
@@ -127,9 +118,9 @@ public class Sweep {
         }
     }
     public boolean isQEventsContainsEventForConstraint(Constraint constraint){
-        for(int i = 0; i<qEvents.size(); i++){
-            if(qEvents.get(i).getConstraint().equals(constraint)){
-                return true;
+        for(QEvent qEvent : qEvents){
+            if(qEvent.getConstraint().equals(constraint)){
+                    return true;
             }
         }
         return false;

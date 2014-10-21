@@ -19,16 +19,24 @@ public class NonOverLapLeft {
     public int algo() {
 
         int passage = 0;
-        int c = execute();
-        //System.out.println("c : "+c);
-        System.out.println("Passage : "+passage);
-        afficherRectangles();
-        while (c != 0 && c != Integer.MAX_VALUE){
+        int c;
+
+        do {
             c = execute();
             passage++;
             System.out.println("Passage : "+passage);
             afficherRectangles();
         }
+        while (c != 0 && c != Integer.MAX_VALUE);
+        //System.out.println("c : "+c);
+//        System.out.println("Passage : "+passage);
+//        afficherRectangles();
+//        while (c != 0 && c != Integer.MAX_VALUE){
+//            c = execute();
+//            passage++;
+//            System.out.println("Passage : "+passage);
+//            afficherRectangles();
+//        }
         return c;
     }
     public void afficherRectangles(){

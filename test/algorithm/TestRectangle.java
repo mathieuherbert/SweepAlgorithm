@@ -116,10 +116,10 @@ public class TestRectangle {
 
         NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
         System.out.println(nonOverLapLeft.algo());
-        System.out.println("r4 "+r1);
         System.out.println("r1 "+r2);
         System.out.println("r2 "+r3);
         System.out.println("r3 "+r4);
+        System.out.println("r4 "+r1);
         System.out.println("r5 "+r5);
         System.out.println("r6 "+r6);
 
