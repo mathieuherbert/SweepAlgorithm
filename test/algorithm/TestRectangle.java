@@ -49,16 +49,16 @@ public class TestRectangle {
     public void testRectangleWithNOLL() throws Exception{
 
         PlacementDomain p1 = new PlacementDomain(0,5,0,4,4,4);
-        Rectangle r1 = new Rectangle(p1);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
         PlacementDomain p2 = new PlacementDomain(1,1,0,0,2,1);
-        Rectangle r2 = new Rectangle(p2);
+        Rectangle r2 = new Rectangle(p2, "Rectangle 2");
 
         PlacementDomain p3 = new PlacementDomain(2,2,2,2,1,4);
-        Rectangle r3 = new Rectangle(p3);
+        Rectangle r3 = new Rectangle(p3, "Rectangle 3");
 
         PlacementDomain p4 =  new PlacementDomain(3,3,0,0,3,2);
-        Rectangle r4 = new Rectangle(p4);
+        Rectangle r4 = new Rectangle(p4, "Rectangle 4");
 
 
 
@@ -84,30 +84,35 @@ public class TestRectangle {
     public void testRectangleWithNOLLBis() throws Exception{
 
         PlacementDomain p1 = new PlacementDomain(0,5,2,2,4,4);
-        Rectangle r1 = new Rectangle(p1);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
         PlacementDomain p2 = new PlacementDomain(1,1,0,0,2,1);
-        Rectangle r2 = new Rectangle(p2);
+        Rectangle r2 = new Rectangle(p2,"Rectangle 2");
 
         PlacementDomain p3 = new PlacementDomain(2,2,2,2,1,4);
-        Rectangle r3 = new Rectangle(p3);
+        Rectangle r3 = new Rectangle(p3, "Rectangle 3");
 
         PlacementDomain p4 =  new PlacementDomain(3,3,0,0,3,2);
-        Rectangle r4 = new Rectangle(p4);
+        Rectangle r4 = new Rectangle(p4, "Rectangle 4");
 
 
         PlacementDomain p5 =  new PlacementDomain(4,8,2,3,2,2);
-        Rectangle r5 = new Rectangle(p5);
+        Rectangle r5 = new Rectangle(p5, "Rectangle 5");
+
+        PlacementDomain p6 =  new PlacementDomain(0,8,2,5,3,2);
+        Rectangle r6 = new Rectangle(p6, "Rectangle 6");
 
 
 
-        Rectangle rectangles[] = new Rectangle[5];
 
-        rectangles[0] = r2;
-        rectangles[1] = r3;
-        rectangles[2] = r4;
-        rectangles[3] = r5;
-        rectangles[4] = r1;
+        Rectangle rectangles[] = new Rectangle[6];
+
+        rectangles[0] = r6;
+        rectangles[1] = r2;
+        rectangles[2] = r3;
+        rectangles[3] = r4;
+        rectangles[4] = r5;
+        rectangles[5] = r1;
 
         NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
         System.out.println(nonOverLapLeft.algo());
@@ -116,7 +121,7 @@ public class TestRectangle {
         System.out.println("r2 "+r3);
         System.out.println("r3 "+r4);
         System.out.println("r5 "+r5);
-
+        System.out.println("r6 "+r6);
 
     }
 }

@@ -17,15 +17,25 @@ public class NonOverLapLeft {
     }
 
     public int algo() {
+
+        int passage = 0;
         int c = execute();
-        System.out.println("c : "+c);
+        //System.out.println("c : "+c);
+        System.out.println("Passage : "+passage);
+        afficherRectangles();
         while (c != 0 && c != Integer.MAX_VALUE){
             c = execute();
-            System.out.println("c : "+c);
+            passage++;
+            System.out.println("Passage : "+passage);
+            afficherRectangles();
         }
         return c;
     }
-
+    public void afficherRectangles(){
+        for(int i = 0; i<rectangles.length; i++){
+           System.out.println(rectangles[i].toString());
+        }
+    }
     public int execute()  {
         int c = 0;
         for(int i = 0; i<rectangles.length;i++){

@@ -10,10 +10,12 @@ public class Rectangle {
    private PlacementDomain placementDomain;
    private  int witness;
     private int finalX;
-    public Rectangle(PlacementDomain placementDomain) {
+    private String name;
+    public Rectangle(PlacementDomain placementDomain, String name) {
         this.placementDomain = placementDomain;
         this.witness = DEFAULT_WITNESS_VALUE;
         this.finalX = placementDomain.getMinX();
+        this.name = name;
     }
 
     public PlacementDomain getPlacementDomain() {
@@ -46,6 +48,7 @@ public class Rectangle {
                 "placementDomain=" + placementDomain +
                 ", witness=" + witness +
                 ", finalX=" + finalX +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

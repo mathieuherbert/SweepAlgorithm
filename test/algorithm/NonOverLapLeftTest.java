@@ -12,19 +12,19 @@ public class NonOverLapLeftTest {
     @Test
     public void testExecute() throws Exception {
         PlacementDomain p1 = new PlacementDomain(2,4,2,4,2,1);
-        Rectangle r1 = new Rectangle(p1);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
         PlacementDomain p2 = new PlacementDomain(4,4,6,6,3,1);
-        Rectangle r2 = new Rectangle(p2);
+        Rectangle r2 = new Rectangle(p2, "Rectangle 2");
 
         PlacementDomain p3 = new PlacementDomain(2,4,8,9,1,1);
-        Rectangle r3 = new Rectangle(p3);
+        Rectangle r3 = new Rectangle(p3, "Rectangle 3");
 
         PlacementDomain p4 = new PlacementDomain(7,7,1,1,1,3);
-        Rectangle r4 = new Rectangle(p4);
+        Rectangle r4 = new Rectangle(p4, "Rectangle 4");
 
         PlacementDomain p5 = new PlacementDomain(1,8,1,8,5,4);
-        Rectangle r5 = new Rectangle(p5);
+        Rectangle r5 = new Rectangle(p5, "Rectangle 5");
 
         Rectangle rectangles[] = new Rectangle[5];
         rectangles[0] = r1;
