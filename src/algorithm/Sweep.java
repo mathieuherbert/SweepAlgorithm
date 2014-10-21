@@ -46,9 +46,6 @@ public class Sweep {
         } else {
             nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1;
             int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1];
-            for(int pStatut : pStatus){
-                pStatut = 0;
-            }
             while (qEvents.size() != 0){
                 int delta = qEvents.get(0).getMinX();
                 while(qEvents.size() > 0 && Math.max(structure.getDomain().getMinX(),qEvents.get(0).getMinX()) == delta){
