@@ -42,11 +42,12 @@ public class Sweep {
         Collections.sort(qEvents);
         //if qevent is empty or the first x is free
         if(qEvents.size() == 0 || qEvents.get(0).getMinX() > structure.getDomain().getMinX() ){
-            return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY())) + structure.getDomain().getMinY(), true);
+            return new Point(structure.getDomain().getMinX(), (int) (Math.random()*(structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1)) + structure.getDomain().getMinY(), true);
         } else {
             nbZeroInPStatus = structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1;
             int[] pStatus = new int[structure.getDomain().getMaxY() - structure.getDomain().getMinY()+1];
             while (qEvents.size() != 0){
+                Collections.sort(qEvents);
                 int delta = qEvents.get(0).getMinX();
                 while(qEvents.size() > 0 && Math.max(structure.getDomain().getMinX(),qEvents.get(0).getMinX()) == delta){
 
@@ -76,6 +77,7 @@ public class Sweep {
         qEvents.remove(0);
         int l = Math.max(structure.getDomain().getMinY(), qEvent.getForbiddenRegion().getMinY());
         int u = Math.min(structure.getDomain().getMaxY(), qEvent.getForbiddenRegion().getMaxY());
+        //if qevent is a start event, we add 1 to pstatus between l and u and we are looking for the next forbidden regions
         if(qEvent.isStart()){ 
             //add 1 to pStatus[u<=i<=i]
             int dif = u -l+1;

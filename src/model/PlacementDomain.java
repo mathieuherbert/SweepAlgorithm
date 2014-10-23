@@ -84,4 +84,16 @@ public class PlacementDomain {
     public int getWidth() {
         return width;
     }
+
+    @Override
+    public String toString() {
+        return "PlacementDomain{" +
+                "minX=" + minX +
+                ", maxX=" + maxX +
+                ", minY=" + minY +
+                ", maxY=" + maxY +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }

@@ -1,15 +1,110 @@
 package algorithm;
 
 import model.*;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Gutii on 20/10/14.
  */
 public class TestRectangle {
+    @Rule
+    public ErrorCollector collector = new ErrorCollector();
+    @Test
+    public void testZeroRectangle(){
+        Rectangle[] rectangles = new Rectangle[0];
+        NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
+        nonOverLapLeft.algo();
+        assertSame(0, nonOverLapLeft.getRectangles().length);
+
+    }
+
+    @Test
+    public void testOneRectangleZeroZero(){
+        Rectangle[] rectangles = new Rectangle[1];
+        PlacementDomain p1 = new PlacementDomain(0,0,0,0,4,4);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
+
+        rectangles[0] = r1;
+
+        NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
+        nonOverLapLeft.algo();
+        Rectangle[] rectangles1 = nonOverLapLeft.getRectangles();
+        assertSame(1, rectangles1.length);
+
+        assertSame(0, rectangles1[0].getFinalX());
+        assertSame(0, rectangles1[0].getWitness());
+    }
+
+    @Test
+    public void testOneRectangleZeroMinusOne(){
+        Rectangle[] rectangles = new Rectangle[1];
+        PlacementDomain p1 = new PlacementDomain(0,0,-1,-1,4,4);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
+
+        rectangles[0] = r1;
+
+        NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
+        nonOverLapLeft.algo();
+        Rectangle[] rectangles1 = nonOverLapLeft.getRectangles();
+        assertSame(1, rectangles1.length);
+
+        assertSame(0, rectangles1[0].getFinalX());
+        assertSame(-1, rectangles1[0].getWitness());
+    }
+
+    @Test
+    public void testOneRectangleMinusOneZero(){
+        Rectangle[] rectangles = new Rectangle[1];
+        PlacementDomain p1 = new PlacementDomain(-1,-1,0,0,4,4);
+        Rectangle r1 = new Rectangle(p1, "Rectangle 1");
+
+        rectangles[0] = r1;
+
+        NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
+        nonOverLapLeft.algo();
+        Rectangle[] rectangles1 = nonOverLapLeft.getRectangles();
+        assertSame(1, rectangles1.length);
+
+        assertSame(-1, rectangles1[0].getFinalX());
+        assertSame(0, rectangles1[0].getWitness());
+    }
+
+    @Test
+    public void testOneRectangleZeroWitness(){
+        int maxY = 3;
+        int[] result = new int[maxY+1];
+        for(int i = 0; i< 1000; i++){
+            Rectangle[] rectangles = new Rectangle[1];
+            PlacementDomain p1 = new PlacementDomain(0,0,0,maxY,4,4);
+            Rectangle r1 = new Rectangle(p1, "Rectangle 1");
+
+            rectangles[0] = r1;
+
+            NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
+            nonOverLapLeft.algo();
+            Rectangle[] rectangles1 = nonOverLapLeft.getRectangles();
+            assertSame(1, rectangles1.length);
+
+            assertSame(0, rectangles1[0].getFinalX());
+
+            result[rectangles1[0].getWitness()] ++;
+        }
+        for(int i=0; i<maxY+1; i++){
+            assertNotSame(0, result[i]);
+        }
+    }
+
+
 
     @Test
     public void testRectangle() throws Exception{
@@ -42,12 +137,13 @@ public class TestRectangle {
         DataStructure structure = new DataStructure(constraints,domain);
         Sweep sweep = new Sweep(structure);
         Point point = sweep.findMinimum();
-        System.out.println(point);
+        assertSame(3,point.getX());
+        assertTrue(3 == point.getY() || 2 == point.getY() );
     }
 
     @Test
     public void testRectangleWithNOLL() throws Exception{
-
+        for(int i =0; i<100; i++){
         PlacementDomain p1 = new PlacementDomain(0,5,0,4,4,4);
         Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
@@ -71,18 +167,30 @@ public class TestRectangle {
 
         NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
         System.out.println(nonOverLapLeft.algo());
-        System.out.println(r1);
-        System.out.println(r2);
-        System.out.println(r3);
-        System.out.println(r4);
+        assertSame(3, r1.getFinalX());
+        // System.out.println(r1.getWitness());
+        assertTrue(3 == r1.getWitness() || 4 == r1.getWitness() || 2 == r1.getWitness());
 
+        assertSame(1,r2.getFinalX());
+        assertSame(0,r2.getWitness());
+
+        assertSame(2,r3.getFinalX());
+        assertSame(2,r3.getWitness());
+
+        assertSame(3,r4.getFinalX());
+        assertSame(0,r4.getWitness());
+      //  System.out.println(r1);
+       // System.out.println(r2);
+        //System.out.println(r3);
+        //System.out.println(r4);
+        }
 
     }
 
 
     @Test
     public void testRectangleWithNOLLBis() throws Exception{
-
+        for(int j = 0; j<100; j++){
         PlacementDomain p1 = new PlacementDomain(0,5,2,2,4,4);
         Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
@@ -115,13 +223,32 @@ public class TestRectangle {
         rectangles[5] = r1;
 
         NonOverLapLeft nonOverLapLeft = new NonOverLapLeft(rectangles);
-        System.out.println(nonOverLapLeft.algo());
+        assertSame(0,nonOverLapLeft.algo());
+        assertSame(1, r2.getFinalX());
+        assertSame(0, r2.getWitness());
+
+        assertSame(2, r3.getFinalX());
+        assertSame(2, r3.getWitness());
+
+        assertSame(3, r4.getFinalX());
+        assertSame(0, r4.getWitness());
+
+        assertSame(7, r5.getFinalX());
+        System.out.println("r5 : "+r5.getWitness());
+            System.out.println("r6 : "+r6.getWitness());
+            collector.checkThat(true, equalTo((r5.getWitness() == 2 && (4 == r6.getWitness() || 5 == r6.getWitness())) || (r5.getWitness() == 3 && 5 == r6.getWitness())));
+
+        assertSame(7, r6.getFinalX());
+        assertTrue(5 == r6.getWitness() || 4 == r6.getWitness());
+
+        assertSame(3, r1.getFinalX());
+        assertSame(2, r1.getWitness());
         System.out.println("r1 "+r2);
         System.out.println("r2 "+r3);
         System.out.println("r3 "+r4);
         System.out.println("r4 "+r1);
         System.out.println("r5 "+r5);
         System.out.println("r6 "+r6);
-
+        }
     }
 }

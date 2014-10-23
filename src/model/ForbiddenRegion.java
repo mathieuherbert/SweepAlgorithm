@@ -116,5 +116,15 @@ public class ForbiddenRegion implements Comparable{
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "ForbiddenRegion{" +
+                "minX=" + minX +
+                ", maxX=" + maxX +
+                ", minY=" + minY +
+                ", maxY=" + maxY +
+                '}';
+    }
 }
 

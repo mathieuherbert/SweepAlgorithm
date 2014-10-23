@@ -6,8 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 /**
  * Created by math.herbert on 18/10/14.
@@ -59,17 +58,85 @@ public class SweepTest {
     }
 
     @Test
-    public void testHandleEvent() throws Exception {
+    public void testZeroZero(){
+        Domain domain = new Domain(0,0,0,0);
+        List<Constraint> constraints = new ArrayList<Constraint>();
 
+        DataStructure structure = new DataStructure(constraints,domain);
+        Sweep sweep = new Sweep(structure);
+        Point point = sweep.findMinimum();
+        assertSame(0, point.getX());
+        assertSame(0, point.getY());
+        assertTrue(point.isR());
     }
 
     @Test
-    public void testAddForbiddenRegionToQEvent() throws Exception {
+    public void testMinusOneZero(){
+        Domain domain = new Domain(-1,-1,0,0);
+        List<Constraint> constraints = new ArrayList<Constraint>();
 
+        DataStructure structure = new DataStructure(constraints,domain);
+        Sweep sweep = new Sweep(structure);
+        Point point = sweep.findMinimum();
+        assertSame(-1, point.getX());
+        assertSame(0, point.getY());
+        assertTrue(point.isR());
     }
 
     @Test
-    public void testIsQEventsContainsEventForConstraint() throws Exception {
+    public void testZeroMinusOne(){
+        Domain domain = new Domain(0,0,-1,-1);
+        List<Constraint> constraints = new ArrayList<Constraint>();
 
+        DataStructure structure = new DataStructure(constraints,domain);
+        Sweep sweep = new Sweep(structure);
+        Point point = sweep.findMinimum();
+        assertSame(0, point.getX());
+        assertSame(-1, point.getY());
+        assertTrue(point.isR());
     }
+
+    @Test
+    public void testZeroY(){
+        int maxY = 5;
+        int[] result = new int[maxY+1];
+        Domain domain = new Domain(0,0,0, maxY);
+
+        List<Constraint> constraints = new ArrayList<Constraint>();
+
+        DataStructure structure = new DataStructure(constraints,domain);
+        for(int i = 0; i<1000; i++){
+            Sweep sweep = new Sweep(structure);
+            Point point = sweep.findMinimum();
+            assertSame(0, point.getX());
+           // assertSame(-1, point.getY());
+            result[point.getY()]++;
+            assertTrue(point.isR());
+        }
+        for(int i =0; i< maxY+1; i++){
+            assertNotSame(0, result[i]);
+        }
+    }
+
+    @Test
+    public void testImpossibleToPlace(){
+        Domain domain = new Domain(0,0,0,0);
+        List<Constraint> constraints = new ArrayList<Constraint>();
+
+        Constraint c1 = new Constraint(domain, "c1");
+        PlacementDomain p1 = new PlacementDomain(0,0,1,1,2,1);
+        ForbiddenRegion f1 = new ForbiddenRegion();
+        f1.computeForbiddenRegion(p1,5,4);
+        c1.addForbiddenRegion(f1);
+        constraints.add(c1);
+
+        DataStructure structure = new DataStructure(constraints,domain);
+        Sweep sweep = new Sweep(structure);
+        Point point = sweep.findMinimum();
+        assertSame(0, point.getX());
+        assertSame(0, point.getY());
+        assertFalse(point.isR());
+    }
+
+
 }

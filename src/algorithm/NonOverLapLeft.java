@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class NonOverLapLeft {
 
-    public Rectangle[] rectangles;
+    private Rectangle[] rectangles;
 
     public NonOverLapLeft(Rectangle[] rectangles) {
         this.rectangles = rectangles;
@@ -53,9 +53,13 @@ public class NonOverLapLeft {
 
                 if(j != i){
                     ForbiddenRegion forbiddenRegion = new ForbiddenRegion();
+                    System.out.println("rectangles["+j+"].getPlacementDomain() " + rectangles[j].getPlacementDomain());
+                    System.out.println("rectangles["+i+"].getPlacementDomain().getWidth() " + rectangles[i].getPlacementDomain().getWidth());
+                    System.out.println("rectangles["+i+"].getPlacementDomain().getHeight() " + rectangles[i].getPlacementDomain().getHeight());
                     forbiddenRegion.computeForbiddenRegion(rectangles[j].getPlacementDomain(), rectangles[i].getPlacementDomain().getWidth(), rectangles[i].getPlacementDomain().getHeight());
                     Constraint constraint = new Constraint(domain, ""+i+" "+j);
                     constraint.addForbiddenRegion(forbiddenRegion);
+                    System.out.println(constraint);
                     constraints.add(constraint);
                 }
             }
@@ -92,5 +96,9 @@ public class NonOverLapLeft {
             }
         }
         return false;
+    }
+
+    public Rectangle[] getRectangles() {
+        return rectangles;
     }
 }

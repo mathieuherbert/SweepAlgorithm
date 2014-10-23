@@ -112,4 +112,14 @@ public class Constraint {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Constraint{" +
+                "domain=" + domain +
+                ", forbiddenRegions=" + forbiddenRegions +
+                ", currentXMin=" + currentXMin +
+                ", currentPosition=" + currentPosition +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
