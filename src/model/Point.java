@@ -5,31 +5,32 @@ package model;
  */
 public class Point {
 
-    private int x;
+    private int external;
 
-    private int y;
+    private int internal;
 
     private boolean r;
-    public Point(int x, int y, boolean r) {
-        this.x = x;
-        this.y = y;
+
+    public Point(int external, int internal, boolean r) {
+        this.external = external;
+        this.internal = internal;
         this.r = r;
     }
 
-    public int getX() {
-        return x;
+    public int getExternal() {
+        return external;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setExternal(int external) {
+        this.external = external;
     }
 
-    public int getY() {
-        return y;
+    public int getInternal() {
+        return internal;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setInternal(int internal) {
+        this.internal = internal;
     }
 
     public boolean isR() {
@@ -47,17 +48,17 @@ public class Point {
 
         Point point = (Point) o;
 
+        if (external != point.external) return false;
+        if (internal != point.internal) return false;
         if (r != point.r) return false;
-        if (x != point.x) return false;
-        if (y != point.y) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = external;
+        result = 31 * result + internal;
         result = 31 * result + (r ? 1 : 0);
         return result;
     }
@@ -65,8 +66,8 @@ public class Point {
     @Override
     public String toString() {
         return "Point{" +
-                "x=" + x +
-                ", y=" + y +
+                "external=" + external +
+                ", internal=" + internal +
                 ", r=" + r +
                 '}';
     }

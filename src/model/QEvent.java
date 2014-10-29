@@ -11,14 +11,16 @@ public class QEvent implements Comparable {
 
     private Constraint constraint;
 
-    private int minX;
+    private int value;
 
 
-    public QEvent(boolean isStart, ForbiddenRegion forbiddenRegion, Constraint constraint, int minX) {
+
+
+    public QEvent(boolean isStart, ForbiddenRegion forbiddenRegion, Constraint constraint, int value) {
         this.isStart = isStart;
         this.forbiddenRegion = forbiddenRegion;
         this.constraint = constraint;
-        this.minX = minX;
+        this.value = value;
     }
 
     public boolean isStart() {
@@ -45,12 +47,12 @@ public class QEvent implements Comparable {
         this.constraint = constraint;
     }
 
-    public int getMinX() {
-        return minX;
+    public int getValue() {
+        return value;
     }
 
-    public void setMinX(int minX) {
-        this.minX = minX;
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
@@ -59,9 +61,9 @@ public class QEvent implements Comparable {
             return -1;
         }
         //return forbiddenRegion.compareTo(((QEvent) o).forbiddenRegion);
-        if(getMinX() < ((QEvent) o).getMinX()){
+        if(getValue() < ((QEvent) o).getValue()){
             return -1;
-        }else if (getMinX() > ((QEvent) o).getMinX()){
+        }else if (getValue() > ((QEvent) o).getValue()){
             return 1;
         }else {
             return 0;

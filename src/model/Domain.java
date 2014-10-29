@@ -1,78 +1,20 @@
 package model;
 
+import java.awt.*;
+import java.util.HashMap;
+
 /**
  * Created by math.herbert on 17/10/14.
  */
 public class Domain {
-    private int minX;
+  private HashMap<Dimension, InternalValuesDomain> domain;
 
-    private int maxX;
-
-    private int minY;
-
-    private int maxY;
-
-    public Domain(int minX, int maxX, int minY, int maxY){
-        this.minX = minX;
-        this.minY = minY;
-        this.maxX = maxX;
-        this.maxY = maxY;
-    }
-    public int getMinX(){
-        return minX;
-    }
-
-    public int getMaxX(){
-        return  this.maxX;
-    }
-
-    public int getMinY(){
-        return this.minY;
-    }
-
-    public int getMaxY(){
-        return this.maxY;
-    }
+  public Domain(HashMap<Dimension, InternalValuesDomain> domain){
+      this.domain = domain;
+  }
+  public int getValue(Dimension dimension, boolean isMax){
+      return isMax?domain.get(dimension).getMax():domain.get(dimension).getMin();
+  }
 
 
-    public void setMinX(int minX) {
-        this.minX = minX;
-    }
-
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
-    }
-
-    public void setMinY(int minY) {
-        this.minY = minY;
-    }
-
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Domain domain = (Domain) o;
-
-        if (maxX != domain.maxX) return false;
-        if (maxY != domain.maxY) return false;
-        if (minX != domain.minX) return false;
-        if (minY != domain.minY) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = minX;
-        result = 31 * result + maxX;
-        result = 31 * result + minY;
-        result = 31 * result + maxY;
-        return result;
-    }
 }

@@ -9,12 +9,13 @@ public class Rectangle {
    public static final int DEFAULT_WITNESS_VALUE = Integer.MAX_VALUE;
    private PlacementDomain placementDomain;
    private  int witness;
-    private int finalX;
+    private int finalExternal;
     private String name;
     public Rectangle(PlacementDomain placementDomain, String name) {
         this.placementDomain = placementDomain;
         this.witness = DEFAULT_WITNESS_VALUE;
-        this.finalX = placementDomain.getMinX();
+
+        this.finalExternal = -1;
         this.name = name;
     }
 
@@ -34,20 +35,20 @@ public class Rectangle {
         this.witness = witness;
     }
 
-    public int getFinalX() {
-        return finalX;
+    public int getFinalExternal() {
+        return finalExternal;
     }
 
-    public void setFinalX(int finalX) {
-        this.finalX = finalX;
+    public void setFinalExternal(int finalExternal) {
+        this.finalExternal = finalExternal;
     }
 
     @Override
     public String toString() {
         return "Rectangle{" +
                 "placementDomain=" + placementDomain +
+                ", finalExternal=" + finalExternal +
                 ", witness=" + witness +
-                ", finalX=" + finalX +
                 ", name='" + name + '\'' +
                 '}';
     }

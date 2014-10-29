@@ -4,57 +4,63 @@ package model;
  * Created by math.herbert on 13/10/14.
  */
 public class PlacementDomain {
-    private int minX;
-    private int maxX;
+    private int minExternal;
+    private int maxExternal;
 
-    private int minY;
-    private int maxY;
+    private int minInternal;
+    private int maxInternal;
 
     private int width;
     private int height;
 
-
-    public PlacementDomain(int width, int height){
-        this.minX =  0;
-        this.maxX =  0;
-        this.minY =  0;
-        this.maxY =  0;
-
+    public PlacementDomain(int width, int height) {
         this.width = width;
         this.height = height;
-
-
     }
 
-    public PlacementDomain(int minX, int maxX, int minY, int maxY, int width, int height){
-        this.minX =  minX;
-        this.maxX =  maxX;
-        this.minY =  minY;
-        this.maxY =  maxY;
-
+    public PlacementDomain(int minExternal, int maxExternal, int minInternal, int maxInternal, int width, int height) {
+        this.minExternal = minExternal;
+        this.maxExternal = maxExternal;
+        this.minInternal = minInternal;
+        this.maxInternal = maxInternal;
         this.width = width;
         this.height = height;
-
-
-    }
-    public void setHeight(int height) {
-        this.height = height;
     }
 
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
+    public int getMinExternal() {
+        return minExternal;
     }
 
-    public void setMinX(int minX) {
-        this.minX = minX;
+    public void setMinExternal(int minExternal) {
+        this.minExternal = minExternal;
     }
 
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
+    public int getMaxExternal() {
+        return maxExternal;
     }
 
-    public void setMinY(int minY) {
-        this.minY = minY;
+    public void setMaxExternal(int maxExternal) {
+        this.maxExternal = maxExternal;
+    }
+
+    public int getMinInternal() {
+        return minInternal;
+    }
+
+    public void setMinInternal(int minInternal) {
+        this.minInternal = minInternal;
+    }
+
+    public int getMaxInternal() {
+        return maxInternal;
+    }
+
+    public void setMaxInternal(int maxInternal) {
+        this.maxInternal = maxInternal;
+    }
+
+    public int getWidth() {
+        return width;
     }
 
     public void setWidth(int width) {
@@ -65,35 +71,7 @@ public class PlacementDomain {
         return height;
     }
 
-    public int getMaxX() {
-        return maxX;
-    }
-
-    public int getMaxY() {
-        return maxY;
-    }
-
-    public int getMinX() {
-        return minX;
-    }
-
-    public int getMinY() {
-        return minY;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public String toString() {
-        return "PlacementDomain{" +
-                "minX=" + minX +
-                ", maxX=" + maxX +
-                ", minY=" + minY +
-                ", maxY=" + maxY +
-                ", width=" + width +
-                ", height=" + height +
-                '}';
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

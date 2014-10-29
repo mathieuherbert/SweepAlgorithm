@@ -4,11 +4,11 @@ package model;
  * Created by math.herbert on 13/10/14.
  */
 public class ForbiddenRegion implements Comparable{
-    private int minX;
-    private int maxX;
+    private int minExternal;
+    private int maxExternal;
 
-    private int minY;
-    private int maxY;
+    private int minInternal;
+    private int maxInternal;
 
     public ForbiddenRegion(){
 
@@ -17,60 +17,60 @@ public class ForbiddenRegion implements Comparable{
 
     public void computeForbiddenRegion(PlacementDomain placementDomain, int width, int height) {
 
-        int xMin = placementDomain.getMaxX() - width + 1;
-        int xMax = placementDomain.getMinX() + placementDomain.getWidth() - 1;
-        if (xMin > xMax) {
+        int externalMin = placementDomain.getMaxExternal() - width + 1;
+        int externalMax = placementDomain.getMinExternal() + placementDomain.getWidth() - 1;
+        if (externalMin > externalMax) {
             return;
         }
-        int yMin = placementDomain.getMaxY() - height + 1;
-        int yMax = placementDomain.getMinY() + placementDomain.getHeight() - 1;
-        if (yMin > yMax) {
+        int internalMin = placementDomain.getMaxInternal() - height + 1;
+        int internalMax = placementDomain.getMinInternal() + placementDomain.getHeight() - 1;
+        if (internalMin > internalMax) {
             return;
         }
 
-        setMinX(xMin);
-        setMaxX(xMax);
-        setMinY(yMin);
-        setMaxY(yMax);
+        setMinExternal(externalMin);
+        setMaxExternal(externalMax);
+        setMinInternal(internalMin);
+        setMaxInternal(internalMax);
 
     }
 
-    public boolean checkIfInForbiddenRegion(int x, int y ){
-        if(x >= minX && x <= maxX && y >= minY && y <= maxY){
+    public boolean checkIfInForbiddenRegion(int external, int internal ){
+        if(external >= minExternal && external <= maxExternal && internal >= minInternal && internal <= maxInternal){
             return true;
         }
         return false;
 
     }
-    public int getMinX() {
-        return minX;
+    public int getMinExternal() {
+        return minExternal;
     }
-    public void setMinX(int minX) {
-        this.minX = minX;
-    }
-
-    public void setMaxX(int maxX) {
-        this.maxX = maxX;
+    public void setMinExternal(int minExternal) {
+        this.minExternal = minExternal;
     }
 
-    public int getMaxX() {
-        return maxX;
+    public void setMaxExternal(int maxExternal) {
+        this.maxExternal = maxExternal;
     }
 
-    public void setMinY(int minY) {
-        this.minY = minY;
+    public int getMaxExternal() {
+        return maxExternal;
     }
 
-    public int getMinY() {
-        return minY;
+    public int getMinInternal() {
+        return minInternal;
     }
 
-    public int getMaxY() {
-        return maxY;
+    public void setMinInternal(int minInternal) {
+        this.minInternal = minInternal;
     }
 
-    public void setMaxY(int maxY) {
-        this.maxY = maxY;
+    public int getMaxInternal() {
+        return maxInternal;
+    }
+
+    public void setMaxInternal(int maxInternal) {
+        this.maxInternal = maxInternal;
     }
 
     @Override
@@ -80,20 +80,20 @@ public class ForbiddenRegion implements Comparable{
 
         ForbiddenRegion that = (ForbiddenRegion) o;
 
-        if (maxX != that.maxX) return false;
-        if (maxY != that.maxY) return false;
-        if (minX != that.minX) return false;
-        if (minY != that.minY) return false;
+        if (maxExternal != that.maxExternal) return false;
+        if (maxInternal != that.maxInternal) return false;
+        if (minExternal != that.minExternal) return false;
+        if (minInternal != that.minInternal) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = minX;
-        result = 31 * result + maxX;
-        result = 31 * result + minY;
-        result = 31 * result + maxY;
+        int result = minExternal;
+        result = 31 * result + maxExternal;
+        result = 31 * result + minInternal;
+        result = 31 * result + maxInternal;
         return result;
     }
 
@@ -102,14 +102,14 @@ public class ForbiddenRegion implements Comparable{
         if(! (o instanceof ForbiddenRegion)){
             return -1;
         }
-        if(minX < ((ForbiddenRegion) o).minX){
+        if(minExternal < ((ForbiddenRegion) o).minExternal){
             return -1;
-        }else if(minX > ((ForbiddenRegion) o).minX){
+        }else if(minExternal > ((ForbiddenRegion) o).minExternal){
             return 1;
         }else {
-            if(minY < ((ForbiddenRegion) o).minY){
+            if(minInternal < ((ForbiddenRegion) o).minInternal){
                 return -1;
-            }else if(minY > ((ForbiddenRegion) o).minY){
+            }else if(minInternal > ((ForbiddenRegion) o).minInternal){
                 return 1;
             }else {
                 return 0;
@@ -120,10 +120,10 @@ public class ForbiddenRegion implements Comparable{
     @Override
     public String toString() {
         return "ForbiddenRegion{" +
-                "minX=" + minX +
-                ", maxX=" + maxX +
-                ", minY=" + minY +
-                ", maxY=" + maxY +
+                "minExternal=" + minExternal +
+                ", maxExternal=" + maxExternal +
+                ", minInternal=" + minInternal +
+                ", maxInternal=" + maxInternal +
                 '}';
     }
 }
