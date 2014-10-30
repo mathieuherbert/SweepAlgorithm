@@ -1,6 +1,8 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by math.herbert on 13/10/14.
@@ -16,7 +18,16 @@ public class PlacementDomain {
         this.d1 = d1;
         this.d2 = d2;
     }
-
+    public PlacementDomain(PlacementDomain another){
+        this.d1 = another.d1;
+        this.d2 = another.d2;
+        this.placements = new HashMap<Dimension, InternalValuesPlacementDomain>();
+        Iterator iterator = another.placements.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Dimension,InternalValuesPlacementDomain> mapEntry = (Map.Entry) iterator.next();
+            this.placements.put(mapEntry.getKey(),mapEntry.getValue());
+        }
+    }
     public InternalValuesPlacementDomain getPlacement(Dimension dimension){
         return placements.get(dimension);
     }

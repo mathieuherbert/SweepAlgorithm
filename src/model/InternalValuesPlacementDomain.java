@@ -16,7 +16,11 @@ public class InternalValuesPlacementDomain {
         this.max = max;
         this.width = width;
     }
-
+    public InternalValuesPlacementDomain(InternalValuesPlacementDomain another){
+        this.min = another.min;
+        this.max = another.max;
+        this.width = another.width;
+    }
     @Override
     public String toString() {
         return "InternalValuesPlacementDomain{" +

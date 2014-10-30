@@ -5,6 +5,7 @@ import model.InternalValuesPlacementDomain;
 import model.PlacementDomain;
 import model.Rectangle;
 import org.junit.Test;
+import tree.Root;
 
 import java.util.HashMap;
 
@@ -62,12 +63,14 @@ public class LaunchTest {
         rectangles[3] = r4;
         rectangles[4] = r5;
 
-       Launch launch = new Launch(rectangles,Dimension.X, Dimension.Y);
-        launch.execute();
-        System.out.println(r1);
-        System.out.println(r2);
-        System.out.println(r3);
-        System.out.println(r4);
-        System.out.println(r5);
+       //Launch launch = new Launch(rectangles,Dimension.X, Dimension.Y);
+        //launch.execute();
+        Root root = new Root(rectangles,Dimension.X, Dimension.Y);
+        System.out.println(root.getAllPossibilities());
+//        System.out.println(r1);
+//        System.out.println(r2);
+//        System.out.println(r3);
+//        System.out.println(r4);
+//        System.out.println(r5);
     }
 }

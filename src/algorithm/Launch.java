@@ -24,9 +24,10 @@ public class Launch {
             System.out.println(rectangles[i].toString());
         }
     }
-    public void execute(){
+    public void execute() throws Exception {
         int c = Integer.MAX_VALUE;
         afficherRectangles();
+        int tmp = 0;
         while(c != 0){
             c = 0;
             System.out.println("NonOverLapLeft");
@@ -34,23 +35,39 @@ public class Launch {
             System.out.println("d2 = " + d2);
 
             NonOverLap nonOverLap = new NonOverLap(rectangles,false,d1,d2);
-            c += nonOverLap.execute();
+            tmp = nonOverLap.execute();
+            if(tmp == Integer.MAX_VALUE){
+                throw new Exception("Impossible to place");
+            }
+            c += tmp;
             System.out.println("c = " + c);
             afficherRectangles();
             System.out.println("NonOverLapRight");
             nonOverLap = new NonOverLap(rectangles,true,d1,d2);
-            c += nonOverLap.execute();
+            tmp = nonOverLap.execute();
+            if(tmp == Integer.MAX_VALUE){
+                throw new Exception("Impossible to place");
+            }
+            c += tmp;
             afficherRectangles();
             for(Rectangle rectangle : rectangles){
                 rectangle.getPlacementDomain().swapDimensions();
             }
             System.out.println("NonOverLapBottom");
             nonOverLap = new NonOverLap(rectangles,false,d2,d1);
-            c += nonOverLap.execute();
+            tmp = nonOverLap.execute();
+            if(tmp == Integer.MAX_VALUE){
+                throw new Exception("Impossible to place");
+            }
+            c += tmp;
             afficherRectangles();
             System.out.println("NonOverLapTop");
             nonOverLap = new NonOverLap(rectangles,true,d2,d1);
-            c += nonOverLap.execute();
+            tmp = nonOverLap.execute();
+            if(tmp == Integer.MAX_VALUE){
+                throw new Exception("Impossible to place");
+            }
+            c += tmp;
             afficherRectangles();
             for(Rectangle rectangle : rectangles){
                 rectangle.getPlacementDomain().swapDimensions();

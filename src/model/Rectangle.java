@@ -19,6 +19,11 @@ public class Rectangle {
         this.name = name;
     }
 
+    public Rectangle(Rectangle another){
+        this.name = another.name;
+        this.placementDomain = new PlacementDomain(another.placementDomain);
+    }
+
     public PlacementDomain getPlacementDomain() {
         return placementDomain;
     }
