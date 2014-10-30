@@ -47,7 +47,6 @@ public class Sweep {
             }
 
         }
-        //TODO
         if(isMax)
             Collections.sort(qEvents, Collections.reverseOrder());
         else {
@@ -67,7 +66,6 @@ public class Sweep {
             int[] pStatus = new int[structure.getDomain().getValue(dimensionInternal, true)
                     - structure.getDomain().getValue(dimensionInternal, false)+1];
             while (qEvents.size() != 0){
-                //TODO
                 if(isMax)
                     Collections.sort(qEvents, Collections.reverseOrder());
                 else {
