@@ -25,7 +25,7 @@ public class PlacementDomain {
         Iterator iterator = another.placements.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Dimension,InternalValuesPlacementDomain> mapEntry = (Map.Entry) iterator.next();
-            this.placements.put(mapEntry.getKey(),mapEntry.getValue());
+            this.placements.put(mapEntry.getKey(),new InternalValuesPlacementDomain(mapEntry.getValue()));
         }
     }
     public InternalValuesPlacementDomain getPlacement(Dimension dimension){

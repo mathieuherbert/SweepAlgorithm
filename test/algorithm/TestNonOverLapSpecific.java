@@ -24,7 +24,7 @@ public class TestNonOverLapSpecific {
         PlacementDomain p1 = new PlacementDomain(h1,Dimension.X,Dimension.Y );
         Rectangle r1 = new Rectangle(p1, "Rectangle 1");
 
-        InternalValuesPlacementDomain ivp21 = new InternalValuesPlacementDomain(0,3,1);
+        InternalValuesPlacementDomain ivp21 = new InternalValuesPlacementDomain(0,2,1);
         InternalValuesPlacementDomain ivp22 = new InternalValuesPlacementDomain(0,6,1);
         HashMap<Dimension, InternalValuesPlacementDomain> h2 = new HashMap<Dimension, InternalValuesPlacementDomain>();
         h2.put(Dimension.X, ivp21);
@@ -44,4 +44,6 @@ public class TestNonOverLapSpecific {
         System.out.println(r1);
         System.out.println(r2);
     }
+
+
 }

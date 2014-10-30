@@ -73,4 +73,41 @@ public class LaunchTest {
 //        System.out.println(r4);
 //        System.out.println(r5);
     }
+
+        @Test
+    public void testThreeRectangleWithPb(){
+
+            Rectangle[] rectangles = new Rectangle[3];
+            InternalValuesPlacementDomain ivp11 = new InternalValuesPlacementDomain(0,0,1);
+            InternalValuesPlacementDomain ivp12 = new InternalValuesPlacementDomain(0,0,8);
+            HashMap<Dimension, InternalValuesPlacementDomain> h1 = new HashMap<Dimension, InternalValuesPlacementDomain>();
+            h1.put(Dimension.X, ivp11);
+            h1.put(Dimension.Y, ivp12);
+            PlacementDomain p1 = new PlacementDomain(h1, Dimension.X, Dimension.Y);
+            Rectangle r1 = new Rectangle(p1, "Rectangle 1");
+
+
+            InternalValuesPlacementDomain ivp21 = new InternalValuesPlacementDomain(0,1,4);
+            InternalValuesPlacementDomain ivp22 = new InternalValuesPlacementDomain(0,7,4);
+            HashMap<Dimension, InternalValuesPlacementDomain> h2 = new HashMap<Dimension, InternalValuesPlacementDomain>();
+            h2.put(Dimension.X, ivp21);
+            h2.put(Dimension.Y, ivp22);
+            PlacementDomain p2 = new PlacementDomain(h2, Dimension.X, Dimension.Y);
+            Rectangle r2 = new Rectangle(p2, "Rectangle 2");
+
+            InternalValuesPlacementDomain ivp31 = new InternalValuesPlacementDomain(0,1,4);
+            InternalValuesPlacementDomain ivp32 = new InternalValuesPlacementDomain(0,7,4);
+            HashMap<Dimension, InternalValuesPlacementDomain> h3 = new HashMap<Dimension, InternalValuesPlacementDomain>();
+            h3.put(Dimension.X, ivp31);
+            h3.put(Dimension.Y, ivp32);
+            PlacementDomain p3 = new PlacementDomain(h3, Dimension.X, Dimension.Y);
+            Rectangle r3 = new Rectangle(p3, "Rectangle 3");
+                rectangles[0] = r1;
+            rectangles[1] = r2;
+            rectangles[2] = r3;
+
+            Root root = new Root(rectangles,Dimension.X,Dimension.Y);
+            root.getAllPossibilities();
+
+    }
 }
