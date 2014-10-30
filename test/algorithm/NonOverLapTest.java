@@ -63,7 +63,7 @@ public class NonOverLapTest {
         for(int i = 0; i<rectangles.length;i++){
             rectangles[i].getPlacementDomain().swapDimensions();
         }
-        NonOverLap nonOverLap = new NonOverLap(rectangles,true, Dimension.Y, Dimension.X);
+        NonOverLap nonOverLap = new NonOverLap(rectangles,false, Dimension.Y, Dimension.X);
         System.out.println(nonOverLap.algo());
         System.out.println(r1);
         System.out.println(r2);

@@ -11,7 +11,10 @@ public class ForbiddenRegion implements Comparable{
     private int maxInternal;
 
     public ForbiddenRegion(){
-
+        minInternal = Integer.MAX_VALUE;
+        maxInternal = Integer.MAX_VALUE;
+        minExternal = Integer.MAX_VALUE;
+        maxExternal = Integer.MAX_VALUE;
     }
 
 

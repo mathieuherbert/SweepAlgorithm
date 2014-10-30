@@ -96,7 +96,7 @@ public class Sweep {
 
             }
         }
-        //TODO point
+
         return new Point (0,0,false);
     }
 
