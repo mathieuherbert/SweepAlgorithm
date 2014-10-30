@@ -47,7 +47,12 @@ public class Sweep {
             }
 
         }
-        Collections.sort(qEvents);
+        //TODO
+        if(isMax)
+            Collections.sort(qEvents, Collections.reverseOrder());
+        else {
+            Collections.sort(qEvents);
+        }
 
         //if qevent is empty or the first x is free
         if(qEvents.size() == 0 || (!isMax && qEvents.get(0).getValue() > structure.getDomain().getValue(dimensionExternal,isMax))

@@ -1,77 +1,54 @@
 package model;
 
+import java.util.HashMap;
+
 /**
  * Created by math.herbert on 13/10/14.
  */
 public class PlacementDomain {
-    private int minExternal;
-    private int maxExternal;
 
-    private int minInternal;
-    private int maxInternal;
+    private HashMap<Dimension, InternalValuesPlacementDomain> placements;
+    private Dimension d1;
+    private Dimension d2;
+    public PlacementDomain(HashMap<Dimension, InternalValuesPlacementDomain> placements, Dimension d1, Dimension d2) {
 
-    private int width;
-    private int height;
-
-    public PlacementDomain(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.placements = placements;
+        this.d1 = d1;
+        this.d2 = d2;
     }
 
-    public PlacementDomain(int minExternal, int maxExternal, int minInternal, int maxInternal, int width, int height) {
-        this.minExternal = minExternal;
-        this.maxExternal = maxExternal;
-        this.minInternal = minInternal;
-        this.maxInternal = maxInternal;
-        this.width = width;
-        this.height = height;
+    public InternalValuesPlacementDomain getPlacement(Dimension dimension){
+        return placements.get(dimension);
     }
 
-    public int getMinExternal() {
-        return minExternal;
+    public  void swapDimensions(){
+        Dimension tmp = d1;
+        d1 = d2;
+        d2 = tmp;
     }
 
-    public void setMinExternal(int minExternal) {
-        this.minExternal = minExternal;
+    public Dimension getD1() {
+        return d1;
     }
 
-    public int getMaxExternal() {
-        return maxExternal;
+    public void setD1(Dimension d1) {
+        this.d1 = d1;
     }
 
-    public void setMaxExternal(int maxExternal) {
-        this.maxExternal = maxExternal;
+    public Dimension getD2() {
+        return d2;
     }
 
-    public int getMinInternal() {
-        return minInternal;
+    public void setD2(Dimension d2) {
+        this.d2 = d2;
     }
 
-    public void setMinInternal(int minInternal) {
-        this.minInternal = minInternal;
-    }
-
-    public int getMaxInternal() {
-        return maxInternal;
-    }
-
-    public void setMaxInternal(int maxInternal) {
-        this.maxInternal = maxInternal;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+    @Override
+    public String toString() {
+        return "PlacementDomain{" +
+                "placements=" + placements +
+                ", d1=" + d1 +
+                ", d2=" + d2 +
+                '}';
     }
 }

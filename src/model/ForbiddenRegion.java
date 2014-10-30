@@ -17,13 +17,14 @@ public class ForbiddenRegion implements Comparable{
 
     public void computeForbiddenRegion(PlacementDomain placementDomain, int width, int height) {
 
-        int externalMin = placementDomain.getMaxExternal() - width + 1;
-        int externalMax = placementDomain.getMinExternal() + placementDomain.getWidth() - 1;
+        int externalMin = placementDomain.getPlacement(placementDomain.getD1()).getMax() - width + 1;
+        int externalMax = placementDomain.getPlacement(placementDomain.getD1()).getMin() + placementDomain.getPlacement(placementDomain.getD1()).getWidth() - 1;
         if (externalMin > externalMax) {
             return;
         }
-        int internalMin = placementDomain.getMaxInternal() - height + 1;
-        int internalMax = placementDomain.getMinInternal() + placementDomain.getHeight() - 1;
+        int internalMin = placementDomain.getPlacement(placementDomain.getD2()).getMax() - height + 1;
+        int internalMax = placementDomain.getPlacement(placementDomain.getD2()).getMin() +
+                placementDomain.getPlacement(placementDomain.getD2()).getWidth() - 1;
         if (internalMin > internalMax) {
             return;
         }

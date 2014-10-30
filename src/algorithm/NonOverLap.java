@@ -59,10 +59,10 @@ public class NonOverLap {
         int c = 0;
         for(int i = 0; i<rectangles.length;i++){
 
-            rectangles[i].setFinalExternal(isMax?rectangles[i].getPlacementDomain().getMaxExternal():rectangles[i].getPlacementDomain().getMinExternal());
+            rectangles[i].setFinalExternal(isMax?rectangles[i].getPlacementDomain().getPlacement(external).getMax():rectangles[i].getPlacementDomain().getPlacement(external).getMin());
             System.out.println("i : "+i+"  "+rectangles[i].getFinalExternal());
-            InternalValuesDomain externalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getMinExternal(), rectangles[i].getPlacementDomain().getMaxExternal());
-            InternalValuesDomain internalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getMinInternal(), rectangles[i].getPlacementDomain().getMaxInternal());
+            InternalValuesDomain externalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getPlacement(external).getMin(), rectangles[i].getPlacementDomain().getPlacement(external).getMax());
+            InternalValuesDomain internalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getPlacement(internal).getMin(), rectangles[i].getPlacementDomain().getPlacement(internal).getMax());
             HashMap<Dimension,InternalValuesDomain> dimensions= new HashMap<Dimension,InternalValuesDomain>();
             dimensions.put(external,externalValues);
             dimensions.put(internal,internalValues);
@@ -73,13 +73,16 @@ public class NonOverLap {
                 if(j != i){
                     ForbiddenRegion forbiddenRegion = new ForbiddenRegion();
                     System.out.println("rectangles["+j+"].getPlacementDomain() " + rectangles[j].getPlacementDomain());
-                    System.out.println("rectangles["+i+"].getPlacementDomain().getWidth() " + rectangles[i].getPlacementDomain().getWidth());
-                    System.out.println("rectangles["+i+"].getPlacementDomain().getHeight() " + rectangles[i].getPlacementDomain().getHeight());
-                    forbiddenRegion.computeForbiddenRegion(rectangles[j].getPlacementDomain(), rectangles[i].getPlacementDomain().getWidth(), rectangles[i].getPlacementDomain().getHeight());
+                    System.out.println("rectangles["+i+"].getPlacementDomain().getWidth() " + rectangles[i].getPlacementDomain().getPlacement(external).getWidth());
+                    System.out.println("rectangles["+i+"].getPlacementDomain().getHeight() " + rectangles[i].getPlacementDomain().getPlacement(internal).getWidth());
+                    forbiddenRegion.computeForbiddenRegion(rectangles[j].getPlacementDomain(), rectangles[i].getPlacementDomain().getPlacement(external).getWidth(), rectangles[i].getPlacementDomain().getPlacement(internal).getWidth());
                     Constraint constraint = new Constraint(domain, ""+i+" "+j);
                     constraint.addForbiddenRegion(forbiddenRegion);
                     System.out.println(constraint);
                     constraints.add(constraint);
+                }
+                if(i==4 && j == 2){
+                    System.out.println("ici");
                 }
             }
             if(checkIfInForbiddenRegion(domain.getValue(external,isMax), rectangles[i].getWitness(), constraints)){
@@ -98,9 +101,9 @@ public class NonOverLap {
                     System.out.println("point.getX()" + point.getExternal());
                     c++;
                     if(isMax)
-                        rectangles[i].getPlacementDomain().setMaxExternal(point.getExternal());
+                        rectangles[i].getPlacementDomain().getPlacement(external).setMax(point.getExternal());
                     else
-                        rectangles[i].getPlacementDomain().setMinExternal(point.getExternal());
+                        rectangles[i].getPlacementDomain().getPlacement(external).setMin(point.getExternal());
                     rectangles[i].setFinalExternal(point.getExternal());
                 }
             }
