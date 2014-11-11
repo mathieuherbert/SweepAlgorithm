@@ -1,6 +1,7 @@
 package tree;
 
 import model.Dimension;
+import model.Possibility;
 import model.Rectangle;
 
 import java.util.ArrayList;
@@ -45,23 +46,35 @@ public class Root {
         }
     }
 
-    public List<Rectangle[]> getAllPossibilities(){
+    public List<List<Possibility>> getAllPossibilities(){
         executeRoot();
         List<Rectangle[]> list =new ArrayList<Rectangle[]>();
+        List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
         for(Tree child : children){
             list.addAll(child.getAllPossibilies());
         }
         int count =1;
+
         for(Rectangle[] rectangles1 : list){
-            System.out.println("Nouvelle solution ("+count+"): ");
+            List<Possibility> tmp = new ArrayList<Possibility>();
+            //System.out.println("Nouvelle solution ("+count+"): ");
             for(Rectangle rectangleb : rectangles1){
-                System.out.println(rectangleb.toString()+"\n");
+                tmp.add(new Possibility(rectangleb.getName(),
+                        rectangleb.getPlacementDomain().getD1(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD1()).getMin(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD1()).getWidth(),
+                        rectangleb.getPlacementDomain().getD2(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getMin(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getWidth()));
+
+                //System.out.println(rectangleb.toString() + "\n");
             }
-            System.out.println("\n\n\n");
-            count++;
+            //System.out.println("\n\n\n");
+            //count++;
+            possibilities.add(tmp);
         }
-        System.out.println("Nombre de solution : "+list.size());
-        return  list;
+        //System.out.println("Nombre de solution : "+list.size());
+        return  possibilities;
     }
 
     public String toString(){

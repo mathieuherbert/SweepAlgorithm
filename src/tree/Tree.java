@@ -86,7 +86,7 @@ public class Tree {
     public List<Rectangle[]> getAllPossibilies(){
 
        if((currentRectangle == rectangles.length-1) && isOk){
-           System.out.println("isok!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+           //System.out.println("isok!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           List<Rectangle[]> list = new ArrayList<Rectangle[]>();
            list.add(rectangles);
            return list;

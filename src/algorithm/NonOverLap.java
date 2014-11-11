@@ -27,38 +27,16 @@ public class NonOverLap {
         this.internal = internal;
     }
 
-    public int algo() {
 
-        int passage = 0;
-        int c;
-
-        do {
-            c = execute();
-            passage++;
-            System.out.println("Passage : "+passage);
-            afficherRectangles();
-        }
-        while (c != 0 && c != Integer.MAX_VALUE);
-        //System.out.println("c : "+c);
-//        System.out.println("Passage : "+passage);
-//        afficherRectangles();
-//        while (c != 0 && c != Integer.MAX_VALUE){
-//            c = execute();
-//            passage++;
-//            System.out.println("Passage : "+passage);
-//            afficherRectangles();
-//        }
-        return c;
-    }
-    public void afficherRectangles(){
+    /*public void afficherRectangles(){
         for(int i = 0; i<rectangles.length; i++){
             System.out.println(rectangles[i].toString());
         }
-    }
+    }*/
     public int execute()  {
         int c = 0;
         for(int i = 0; i<rectangles.length;i++){
-            System.out.println("i = " + i);
+    //        System.out.println("i = " + i);
             rectangles[i].setFinalExternal(isMax?rectangles[i].getPlacementDomain().getPlacement(external).getMax():rectangles[i].getPlacementDomain().getPlacement(external).getMin());
            // System.out.println("i : "+i+"  "+rectangles[i].getFinalExternal());
             InternalValuesDomain externalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getPlacement(external).getMin(), rectangles[i].getPlacementDomain().getPlacement(external).getMax());
@@ -87,26 +65,18 @@ public class NonOverLap {
                 DataStructure structure = new DataStructure(constraints, domain);
                 Sweep sweep = new Sweep(structure, internal, external,isMax);
                 Point point = sweep.find();
-                //System.out.println("rectangle "+(i+1)+" :" +point);
-                // System.out.println(point.getY());
-                //System.out.println(checkIfInForbiddenRegion(point.getX(), point.getY(), constraints));
                 rectangles[i].setWitness(point.getInternal());
                 if(point.isR() == false){
-                    System.out.println("isr");
+
                     return  Integer.MAX_VALUE;
                 }else if(point.getExternal() != domain.getValue(external,isMax)){
 
                     c++;
-                    System.out.println("c : "+c);
                     if(isMax)
                         rectangles[i].getPlacementDomain().getPlacement(external).setMax(point.getExternal());
                     else
                         rectangles[i].getPlacementDomain().getPlacement(external).setMin(point.getExternal());
-
-                    
-                    System.out.println("placement domain externall" +i+"  "+rectangles[i].getPlacementDomain().getPlacement(external));
                     rectangles[i].setFinalExternal(point.getExternal());
-                    System.out.println("point = " + point);
                 }
             }
         }

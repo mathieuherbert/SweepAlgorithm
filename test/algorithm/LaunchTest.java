@@ -1,13 +1,12 @@
 package algorithm;
 
-import model.Dimension;
-import model.InternalValuesPlacementDomain;
-import model.PlacementDomain;
-import model.Rectangle;
+import model.*;
 import org.junit.Test;
 import tree.Root;
+import util.Print;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by math.herbert on 30/10/14.
@@ -107,7 +106,10 @@ public class LaunchTest {
             rectangles[2] = r3;
 
             Root root = new Root(rectangles,Dimension.X,Dimension.Y);
-            root.getAllPossibilities();
+            List<List<Possibility>> possibilities =  root.getAllPossibilities();
+            Print.printPossibilites(possibilities);
 
     }
+
+
 }
