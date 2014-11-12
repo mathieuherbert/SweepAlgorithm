@@ -72,4 +72,34 @@ public class Possibility {
                 ", d2Width=" + d2Width +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Possibility that = (Possibility) o;
+
+        if (d1Value != that.d1Value) return false;
+        if (d1Width != that.d1Width) return false;
+        if (d2Value != that.d2Value) return false;
+        if (d2Width != that.d2Width) return false;
+        if (d1 != that.d1) return false;
+        if (d2 != that.d2) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (d1 != null ? d1.hashCode() : 0);
+        result = 31 * result + d1Value;
+        result = 31 * result + d1Width;
+        result = 31 * result + (d2 != null ? d2.hashCode() : 0);
+        result = 31 * result + d2Value;
+        result = 31 * result + d2Width;
+        return result;
+    }
 }

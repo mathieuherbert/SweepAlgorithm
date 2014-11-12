@@ -61,16 +61,8 @@ public class LaunchTest {
         rectangles[2] = r3;
         rectangles[3] = r4;
         rectangles[4] = r5;
-
-       //Launch launch = new Launch(rectangles,Dimension.X, Dimension.Y);
-        //launch.execute();
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-        System.out.println(root.getAllPossibilities());
-//        System.out.println(r1);
-//        System.out.println(r2);
-//        System.out.println(r3);
-//        System.out.println(r4);
-//        System.out.println(r5);
+        Print.printPossibilites(root.getAllPossibilities());
     }
 
         @Test
@@ -110,6 +102,4 @@ public class LaunchTest {
             Print.printPossibilites(possibilities);
 
     }
-
-
 }
