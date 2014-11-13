@@ -18,6 +18,30 @@ public class Possibility {
 
     int d2Width;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getD1Width() {
+        return d1Width;
+    }
+
+    public void setD1Width(int d1Width) {
+        this.d1Width = d1Width;
+    }
+
+    public int getD2Width() {
+        return d2Width;
+    }
+
+    public void setD2Width(int d2Width) {
+        this.d2Width = d2Width;
+    }
+
     public Possibility(String name, Dimension d1, int d1Value, int d1Width, Dimension d2, int d2Value, int d2Width) {
         this.name = name;
         this.d1 = d1;
@@ -27,6 +51,16 @@ public class Possibility {
         this.d2Value = d2Value;
         this.d2Width = d2Width;
     }
+    public Possibility(Possibility other){
+        this.name = other.name;
+        this.d1 = other.d1;
+        this.d1Value = other.d1Value;
+        this.d1Width = other.d1Width;
+        this.d2 = other.d2;
+        this.d2Value = other.d2Value;
+        this.d2Width = other.d2Width;
+    }
+
 
     public Dimension getD1() {
         return d1;
