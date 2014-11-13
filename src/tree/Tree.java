@@ -45,8 +45,8 @@ public class Tree {
         /*System.out.println("rectangles[0].getName() = " + rectangles[currentRectangle].getName());
         System.out.println("dim = " +currentDimension);
         System.out.println("d1 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD1()).getMin());
-        System.out.println("d2 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD2()).getMin());
-        */
+        System.out.println("d2 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD2()).getMin());*/
+
         Launch launch = new Launch(rectangles,d1,d2);
         try {
             launch.execute();

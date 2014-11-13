@@ -1,5 +1,6 @@
 package tree;
 
+import algorithm.Launch;
 import model.Dimension;
 import model.Possibility;
 import model.Rectangle;
@@ -29,14 +30,19 @@ public class Root {
 
     public List<List<Possibility>> executeRoot(){
         List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
-
+        Launch launch = new Launch(rectangles,d1,d2);
+        try {
+            launch.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Rectangle rectangle = rectangles[0];
         int max = rectangle.getPlacementDomain().getPlacement(d1).getMax();
         int min = rectangle.getPlacementDomain().getPlacement(d1).getMin();
 
         for(int i =min; i<=max; i++){
-           /* System.out.println("rectangles[0].getName() = " + rectangles[0].getName());
-            System.out.println("d1 = " + d1);*/
+          // System.out.println("rectangles[0].getName() = " + rectangles[0].getName());
+            //System.out.println("d1 = " + d1);
             Rectangle[] rectanglesTmp = new Rectangle[rectangles.length];
             for(int j=0; j<rectangles.length; j++){
                 rectanglesTmp[j] = new Rectangle(rectangles[j]);
