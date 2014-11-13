@@ -3,6 +3,7 @@ package tree;
 import algorithm.Launch;
 import algorithm.NonOverLap;
 import model.Dimension;
+import model.Possibility;
 import model.Rectangle;
 import sun.misc.Launcher;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by math.herbert on 30/10/14.
  */
 public class Tree {
-    private List<Tree> children;
+
 
     private Rectangle[] rectangles;
 
@@ -36,23 +37,46 @@ public class Tree {
         this.currentRectangle = currentRectangle;
         this.currentDimension = currentDimension;
         isOk = false;
-        children = new ArrayList<Tree>();
+
 
     }
 
-    public void executeTree(){
+    public List<List<Possibility>> executeTree(){
+        /*System.out.println("rectangles[0].getName() = " + rectangles[currentRectangle].getName());
+        System.out.println("dim = " +currentDimension);
+        System.out.println("d1 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD1()).getMin());
+        System.out.println("d2 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD2()).getMin());
+        */
         Launch launch = new Launch(rectangles,d1,d2);
         try {
             launch.execute();
         }catch (Exception e){
             isOk = false;
-            return;
+            return new ArrayList<List<Possibility>>();
         }
         int min;
         int max;
         if(currentRectangle == rectangles.length-1 && currentDimension == d2){
             isOk = true;
-            return;
+            List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
+            List<Possibility> tmp = new ArrayList<Possibility>();
+
+            for(Rectangle rectangleb : rectangles){
+                tmp.add(new Possibility(rectangleb.getName(),
+                        rectangleb.getPlacementDomain().getD1(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD1()).getMin(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD1()).getWidth(),
+                        rectangleb.getPlacementDomain().getD2(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getMin(),
+                        rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getWidth()));
+
+                //System.out.println(rectangleb.toString() + "\n");
+            }
+            //System.out.println("\n\n\n");
+            //count++;
+            possibilities.add(tmp);
+
+            return possibilities;
         }
         if(currentDimension == d2){
             Rectangle rectangle = rectangles[currentRectangle+1];
@@ -63,6 +87,7 @@ public class Tree {
             max = rectangle.getPlacementDomain().getPlacement(d2).getMax();
             min = rectangle.getPlacementDomain().getPlacement(d2).getMin();
         }
+        List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
         for(int i =min; i<=max; i++){
             Rectangle[] rectanglesTmp = new Rectangle[rectangles.length];
             for(int j=0; j<rectangles.length; j++){
@@ -78,41 +103,11 @@ public class Tree {
                 rectanglesTmp[currentRectangle+1].getPlacementDomain().getPlacement(d1).setMax(i);
                 child = new Tree(rectanglesTmp,d1,d2,currentRectangle+1,d1);
             }
-            child.executeTree();
-            children.add(child);
+            possibilities.addAll(child.executeTree());
+
         }
+        return  possibilities;
     }
-
-    public List<Rectangle[]> getAllPossibilies(){
-
-       if((currentRectangle == rectangles.length-1) && isOk){
-           //System.out.println("isok!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-          List<Rectangle[]> list = new ArrayList<Rectangle[]>();
-           list.add(rectangles);
-           return list;
-       } else {
-           List<Rectangle[]> list = new ArrayList<Rectangle[]>();
-           for (Tree child : children){
-               list.addAll(child.getAllPossibilies());
-           }
-           return list;
-       }
-     //  return new ArrayList<Rectangle[]>();
-
-
-    }
-    public String toString(int level){
-        String ret = "child : \n";
-
-        for(Tree child : children){
-            for(int i=0; i<level; i++){
-                ret+="\t";
-            }
-            ret+= child.isOk+"  "+child.toString(level+1)+"\n";
-        }
-        return ret;
-    }
-
 
     public boolean getIsOk() {
         return isOk;

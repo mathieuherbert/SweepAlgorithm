@@ -69,7 +69,7 @@ public class Sweep {
                 if(isMax)
                     Collections.sort(qEvents, Collections.reverseOrder());
                 else {
-                    Collections.sort(qEvents);
+                   Collections.sort(qEvents);
 
                 }
                 int delta = qEvents.get(0).getValue();

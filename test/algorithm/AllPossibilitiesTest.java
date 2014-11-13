@@ -18,6 +18,59 @@ import static org.junit.Assert.assertTrue;
 public class AllPossibilitiesTest {
 
     @Test
+    public void bigBigTest(){
+        int nbRectangles =50;
+
+
+        Rectangle[][] rectanglesInit = new Rectangle[2][];
+
+        rectanglesInit[0] = new Rectangle[nbRectangles];
+        rectanglesInit[1] = new Rectangle[nbRectangles];
+        for(int i = 0; i<nbRectangles; i++){
+            int v1 = (int)(Math.random()*100.0)+1;
+            int v2 = (int)(Math.random()*5.0)+v1;
+            int v3 = (int)(Math.random()*100.0)+1;
+            int v4 = (int)(Math.random()*5.0)+v3;
+
+            int width1 = (int)(Math.random()*10.0)+1;
+            int width2 = (int)(Math.random()*10.0)+1;
+            for(int k = 0; k<2;k++){
+            InternalValuesPlacementDomain ivp11 = new InternalValuesPlacementDomain(v1,v2,width1);
+                InternalValuesPlacementDomain ivp12 = new InternalValuesPlacementDomain(v3,v4,width2);
+                HashMap<Dimension, InternalValuesPlacementDomain> h1 = new HashMap<Dimension, InternalValuesPlacementDomain>();
+                h1.put(Dimension.X, ivp11);
+                h1.put(Dimension.Y, ivp12);
+                PlacementDomain p1 = new PlacementDomain(h1,Dimension.X,Dimension.Y );
+                Rectangle r = new Rectangle(p1, "Rectangle "+i);
+                rectanglesInit[k][i] = r;
+            }
+        }
+
+
+
+        Root root = new Root(rectanglesInit[1],Dimension.X, Dimension.Y);
+        long startTime = System.nanoTime();
+        List<List<Possibility>> sauvage = null;
+        List<List<Possibility>> algo = root.executeRoot();
+
+        long finalTime = System.nanoTime();
+        System.out.println("Algo : "+ (finalTime-startTime));
+        startTime = System.nanoTime();
+        sauvage = basicAlgorithm(rectanglesInit[0]);
+        finalTime = System.nanoTime();
+        System.out.println("Basic : "+ (finalTime-startTime));
+
+        try {
+            Print.printPossibilites(Verify.areNotInP2(sauvage, algo));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(Verify.samePossibilities(sauvage, algo));
+    }
+
+
+    @Test
     public void bigTest(){
 
         InternalValuesPlacementDomain ivp11 = new InternalValuesPlacementDomain(1,4,2);
@@ -66,18 +119,25 @@ public class AllPossibilitiesTest {
         rectangles[2] = r3;
         rectangles[3] = r4;
         rectangles[4] = r5;
-        //System.out.println("possibilites : "+basicAlgorithm(rectanglesInit).size());
+
+        Rectangle rectanglesBasic[] = new Rectangle[5];
+        rectanglesBasic[0] = new Rectangle(r1);
+        rectanglesBasic[1] = new Rectangle(r2);
+        rectanglesBasic[2] = new Rectangle(r3);
+        rectanglesBasic[3] = new Rectangle(r4);
+        rectanglesBasic[4] = new Rectangle(r5);
+
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-        //System.out.println("possibilites : "+root.getAllPossibilities().size());
-        //System.out.println(basicAlgorithm(rectangles).size());
-        List<List<Possibility>> sauvage = basicAlgorithm(rectangles);
-        System.out.println(sauvage.size());
-        List<List<Possibility>> algo = root.getAllPossibilities();
-        System.out.println(algo.size());
+        long startTime = System.nanoTime();
+        List<List<Possibility>> sauvage = basicAlgorithm(rectanglesBasic);
+        long finalTime = System.nanoTime();
+        System.out.println("Basic : "+ (finalTime-startTime));
+        startTime = System.nanoTime();
+        List<List<Possibility>> algo = root.executeRoot();
+        finalTime = System.nanoTime();
+        System.out.println("Algo : "+ (finalTime-startTime));
+
         try {
-           // Print.printPossibilites(Verify.areNotInP2(basicAlgorithm(rectangles), root.getAllPossibilities()));
-            //System.out.println(basicAlgorithm(rectangles).size());
-            //System.out.println(root.getAllPossibilities().size());
            Print.printPossibilites(Verify.areNotInP2(sauvage, algo));
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,11 +177,16 @@ public class AllPossibilitiesTest {
         rectanglesInit[0] = r1;
         rectanglesInit[1] = r2;
         rectanglesInit[2] = r3;
-        //System.out.println("possibilites : "+basicAlgorithm(rectanglesInit).size());
+
         Root root = new Root(rectanglesInit,Dimension.X, Dimension.Y);
-        //System.out.println("possibilites : "+root.getAllPossibilities().size());
+        long startTime = System.nanoTime();
         List<List<Possibility>> sauvage = basicAlgorithm(rectanglesInit);
-        List<List<Possibility>> algo = root.getAllPossibilities();
+        long finalTime = System.nanoTime();
+        System.out.println("Basic : "+ (finalTime-startTime));
+        startTime = System.nanoTime();
+        List<List<Possibility>> algo = root.executeRoot();
+        finalTime = System.nanoTime();
+        System.out.println("Algo : "+ (finalTime-startTime));
         try {
             System.out.println(Verify.areNotInP2(sauvage, algo).size());
         } catch (Exception e) {

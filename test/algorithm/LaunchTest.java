@@ -62,10 +62,10 @@ public class LaunchTest {
         rectangles[3] = r4;
         rectangles[4] = r5;
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-        Print.printPossibilites(root.getAllPossibilities());
+        Print.printPossibilites(root.executeRoot());
     }
 
-        @Test
+    @Test
     public void testThreeRectangleWithPb(){
 
             Rectangle[] rectangles = new Rectangle[3];
@@ -98,7 +98,7 @@ public class LaunchTest {
             rectangles[2] = r3;
 
             Root root = new Root(rectangles,Dimension.X,Dimension.Y);
-            List<List<Possibility>> possibilities =  root.getAllPossibilities();
+            List<List<Possibility>> possibilities =  root.executeRoot();
             Print.printPossibilites(possibilities);
 
     }

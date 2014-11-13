@@ -61,7 +61,7 @@ public class InversionTest {
                 System.out.println("rectangles : "+ rectangles[j].getName());
             }
             Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-            List<List<Possibility>> current = root.getAllPossibilities();
+            List<List<Possibility>> current = root.executeRoot();
             if(previous != null){
                 assertTrue(Verify.samePossibilities(previous,current));
             }
@@ -132,7 +132,7 @@ public class InversionTest {
                 System.out.println("rectangles : "+ rectangles[j].getName());
             }
             Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-            List<List<Possibility>> current = root.getAllPossibilities();
+            List<List<Possibility>> current = root.executeRoot();
             if(previous != null){
                 assertTrue(Verify.samePossibilities(previous,current));
             }
