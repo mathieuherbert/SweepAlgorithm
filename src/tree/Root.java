@@ -49,8 +49,7 @@ public class Root {
             }
             rectanglesTmp[0].getPlacementDomain().getPlacement(d1).setMin(i);
             rectanglesTmp[0].getPlacementDomain().getPlacement(d1).setMax(i);
-            Tree child = new Tree(rectanglesTmp,d1,d2,0,d1);
-            possibilities.addAll(child.executeTree());
+            possibilities.addAll(new Tree().executeTree(rectanglesTmp,d1,d2,0,d1));
         }
         return  possibilities;
     }

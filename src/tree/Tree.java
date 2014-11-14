@@ -16,32 +16,11 @@ import java.util.List;
 public class Tree {
 
 
-    private Rectangle[] rectangles;
-
-    private Dimension d1;
-
-    private Dimension d2;
-
-    private boolean isOk;
-
-    private int currentRectangle;
-
-    private Dimension currentDimension;
-
-
-
-    public Tree(Rectangle[] rectangles, Dimension d1, Dimension d2, int currentRectangle, Dimension currentDimension) {
-        this.rectangles = rectangles;
-        this.d1 = d1;
-        this.d2 = d2;
-        this.currentRectangle = currentRectangle;
-        this.currentDimension = currentDimension;
-        isOk = false;
-
+    public Tree() {
 
     }
 
-    public List<List<Possibility>> executeTree(){
+    public List<List<Possibility>> executeTree(Rectangle[] rectangles, Dimension d1, Dimension d2, int currentRectangle, Dimension currentDimension){
         /*System.out.println("rectangles[0].getName() = " + rectangles[currentRectangle].getName());
         System.out.println("dim = " +currentDimension);
         System.out.println("d1 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD1()).getMin());
@@ -51,13 +30,11 @@ public class Tree {
         try {
             launch.execute();
         }catch (Exception e){
-            isOk = false;
             return new ArrayList<List<Possibility>>();
         }
         int min;
         int max;
         if(currentRectangle == rectangles.length-1 && currentDimension == d2){
-            isOk = true;
             List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
             List<Possibility> tmp = new ArrayList<Possibility>();
 
@@ -93,23 +70,19 @@ public class Tree {
             for(int j=0; j<rectangles.length; j++){
                 rectanglesTmp[j] = new Rectangle(rectangles[j]);
             }
-            Tree child = null;
+
             if(currentDimension == d1){
                 rectanglesTmp[currentRectangle].getPlacementDomain().getPlacement(d2).setMin(i);
                 rectanglesTmp[currentRectangle].getPlacementDomain().getPlacement(d2).setMax(i);
-                child = new Tree(rectanglesTmp,d1,d2,currentRectangle,d2);
+                possibilities.addAll(executeTree(rectanglesTmp, d1, d2, currentRectangle, d2));
             } else{
                 rectanglesTmp[currentRectangle+1].getPlacementDomain().getPlacement(d1).setMin(i);
                 rectanglesTmp[currentRectangle+1].getPlacementDomain().getPlacement(d1).setMax(i);
-                child = new Tree(rectanglesTmp,d1,d2,currentRectangle+1,d1);
+                possibilities.addAll(executeTree(rectanglesTmp, d1, d2, currentRectangle + 1, d1));
             }
-            possibilities.addAll(child.executeTree());
-
         }
         return  possibilities;
     }
 
-    public boolean getIsOk() {
-        return isOk;
-    }
+
 }
