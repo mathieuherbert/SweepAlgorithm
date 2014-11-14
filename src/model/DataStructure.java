@@ -3,12 +3,16 @@ package model;
 import java.util.List;
 
 /**
- * Created by math.herbert on 17/10/14.
+ * DataStructure for the sweep Algorithm
  */
 public class DataStructure {
-
+    /**
+     * List of constraints
+     */
     private List<Constraint> constraints;
-
+    /**
+     * The domain for the current rectangle
+     */
     private Domain domain;
 
 

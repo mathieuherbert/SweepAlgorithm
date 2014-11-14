@@ -3,14 +3,16 @@ package model;
 import java.util.List;
 
 /**
- * Created by math.herbert on 20/10/14.
+ * A classical rectangle defined by a name
  */
 public class Rectangle {
    public static final int DEFAULT_WITNESS_VALUE = Integer.MAX_VALUE;
+
    private PlacementDomain placementDomain;
    private  int witness;
     private int finalExternal;
     private String name;
+
     public Rectangle(PlacementDomain placementDomain, String name) {
         this.placementDomain = placementDomain;
         this.witness = DEFAULT_WITNESS_VALUE;

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 17/10/14.
+ * An Event for the Queue Event in the Sweep Algorithm
  */
 public class QEvent implements Comparable {
 
@@ -14,8 +14,13 @@ public class QEvent implements Comparable {
     private int value;
 
 
-
-
+    /**
+     *
+     * @param isStart if the event is a start event
+     * @param forbiddenRegion the forbidden region related to the event
+     * @param constraint the constraint related to the event
+     * @param value the value where the event is triggered
+     */
     public QEvent(boolean isStart, ForbiddenRegion forbiddenRegion, Constraint constraint, int value) {
         this.isStart = isStart;
         this.forbiddenRegion = forbiddenRegion;
@@ -55,6 +60,11 @@ public class QEvent implements Comparable {
         this.value = value;
     }
 
+    /**
+     *
+     * @param o another
+     * @return value > 0.value
+     */
     @Override
     public int compareTo(Object o) {
         if(! (o instanceof QEvent)){

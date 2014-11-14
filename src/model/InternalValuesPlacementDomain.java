@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 29/10/14.
+ * Internal Values for a domain with a min, max and a width
  */
 public class InternalValuesPlacementDomain {
 
@@ -16,6 +16,11 @@ public class InternalValuesPlacementDomain {
         this.max = max;
         this.width = width;
     }
+
+    /**
+     * clone the other
+     * @param another
+     */
     public InternalValuesPlacementDomain(InternalValuesPlacementDomain another){
         this.min = another.min;
         this.max = another.max;

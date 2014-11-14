@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by math.herbert on 30/10/14.
+ * Other parts of the tree
  */
 public class Tree {
 
@@ -20,24 +20,31 @@ public class Tree {
 
     }
 
+    /**
+     * get All Possibilities for NonOverlap over 2 dimensions
+     * @param rectangles
+     * @param d1 first dimension
+     * @param d2 second dimension
+     * @param currentRectangle the current rectangle
+     * @param currentDimension the first or second dimension
+     * @return all possibilities
+     */
     public List<List<Possibility>> executeTree(Rectangle[] rectangles, Dimension d1, Dimension d2, int currentRectangle, Dimension currentDimension){
-        /*System.out.println("rectangles[0].getName() = " + rectangles[currentRectangle].getName());
-        System.out.println("dim = " +currentDimension);
-        System.out.println("d1 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD1()).getMin());
-        System.out.println("d2 : "+rectangles[currentRectangle].getPlacementDomain().getPlacement(rectangles[currentRectangle].getPlacementDomain().getD2()).getMin());*/
 
         Launch launch = new Launch(rectangles,d1,d2);
         try {
             launch.execute();
         }catch (Exception e){
+            //no one possibilities
             return new ArrayList<List<Possibility>>();
         }
         int min;
         int max;
+        //it is the last rectangle and last dimension => and there is a possibility
         if(currentRectangle == rectangles.length-1 && currentDimension == d2){
             List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
             List<Possibility> tmp = new ArrayList<Possibility>();
-
+            //create possibilities
             for(Rectangle rectangleb : rectangles){
                 tmp.add(new Possibility(rectangleb.getName(),
                         rectangleb.getPlacementDomain().getD1(),
@@ -47,14 +54,12 @@ public class Tree {
                         rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getMin(),
                         rectangleb.getPlacementDomain().getPlacement(rectangleb.getPlacementDomain().getD2()).getWidth()));
 
-                //System.out.println(rectangleb.toString() + "\n");
-            }
-            //System.out.println("\n\n\n");
-            //count++;
-            possibilities.add(tmp);
 
+            }
+            possibilities.add(tmp);
             return possibilities;
         }
+        //swap dimension or go to next rectangle
         if(currentDimension == d2){
             Rectangle rectangle = rectangles[currentRectangle+1];
             max = rectangle.getPlacementDomain().getPlacement(d1).getMax();
@@ -65,6 +70,7 @@ public class Tree {
             min = rectangle.getPlacementDomain().getPlacement(d2).getMin();
         }
         List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
+
         for(int i =min; i<=max; i++){
             Rectangle[] rectanglesTmp = new Rectangle[rectangles.length];
             for(int j=0; j<rectangles.length; j++){
@@ -81,6 +87,7 @@ public class Tree {
                 possibilities.addAll(executeTree(rectanglesTmp, d1, d2, currentRectangle + 1, d1));
             }
         }
+        //there are no one possibility
         return  possibilities;
     }
 

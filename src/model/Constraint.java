@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by math.herbert on 17/10/14.
+ * Define a Constraint
+ * A constraint can have multiple forbiddenRegions
  */
 public class Constraint {
     private final Domain domain;
@@ -35,7 +36,12 @@ public class Constraint {
         Collections.sort(forbiddenRegions);
     }
 
-
+    /**
+     * Get the first forbidden region from the list
+     * @param external the external dimension
+     * @param isMax if it's from max or min value
+     * @return
+     */
     public List<ForbiddenRegion> getFirstForbiddenRegions(Dimension external, boolean isMax){
         List<ForbiddenRegion> firstForbiddenRegions = new ArrayList<ForbiddenRegion>();
         boolean find = false;
@@ -106,6 +112,12 @@ public class Constraint {
         return nextForbiddenRegions;
     }
 
+    /**
+     * check if (external,internal) is in a forbidden region
+     * @param external external value
+     * @param internal internal value
+     * @return true if in forbidden region
+     */
     public boolean checkIfInForbiddenRegions(int external, int internal){
         for (ForbiddenRegion forbiddenRegion : forbiddenRegions){
             if(forbiddenRegion.checkIfInForbiddenRegion(external,internal)){

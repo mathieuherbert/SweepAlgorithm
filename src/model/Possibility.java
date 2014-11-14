@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 11/11/14.
+ * A placement possibility for a rectangle over 2 dimensions
  */
 public class Possibility {
     String name;
@@ -42,6 +42,16 @@ public class Possibility {
         this.d2Width = d2Width;
     }
 
+    /**
+     *
+     * @param name of the rectangle
+     * @param d1 first dimension
+     * @param d1Value first placement value
+     * @param d1Width first width
+     * @param d2 second dimension
+     * @param d2Value second placement value
+     * @param d2Width second width
+     */
     public Possibility(String name, Dimension d1, int d1Value, int d1Width, Dimension d2, int d2Value, int d2Width) {
         this.name = name;
         this.d1 = d1;
@@ -51,6 +61,11 @@ public class Possibility {
         this.d2Value = d2Value;
         this.d2Width = d2Width;
     }
+
+    /**
+     * Clone another
+     * @param other
+     */
     public Possibility(Possibility other){
         this.name = other.name;
         this.d1 = other.d1;

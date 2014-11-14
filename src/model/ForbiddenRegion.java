@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 13/10/14.
+ * Define a forbidden Region, with an external and an internal dimension
  */
 public class ForbiddenRegion implements Comparable{
     private int minExternal;
@@ -17,7 +17,12 @@ public class ForbiddenRegion implements Comparable{
         maxExternal = Integer.MAX_VALUE;
     }
 
-
+    /**
+     * Compute a forbidden region according to the internal and external dimension
+     * @param placementDomain placement domain
+     * @param width for externalDimension
+     * @param height for internalDimension
+     */
     public void computeForbiddenRegion(PlacementDomain placementDomain, int width, int height) {
 
         int externalMin = placementDomain.getPlacement(placementDomain.getD1()).getMax() - width + 1;
@@ -39,6 +44,12 @@ public class ForbiddenRegion implements Comparable{
 
     }
 
+    /**
+     *
+     * @param external external Value
+     * @param internal internal Value
+     * @return true if the (internal, external) is in a forbidden region
+     */
     public boolean checkIfInForbiddenRegion(int external, int internal ){
         if(external >= minExternal && external <= maxExternal && internal >= minInternal && internal <= maxInternal){
             return true;
@@ -101,6 +112,12 @@ public class ForbiddenRegion implements Comparable{
         return result;
     }
 
+    /**
+     * 1) minExternal / o.minExternal
+     * 2) mininternal / o.minInternal
+     * @param o other Forbidden region
+     * @return 1 if this> 0
+     */
     @Override
     public int compareTo(Object o) {
         if(! (o instanceof ForbiddenRegion)){

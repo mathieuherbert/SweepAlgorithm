@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by math.herbert on 30/10/14.
+ * The root of the tree
  */
 public class Root {
 
@@ -21,6 +21,12 @@ public class Root {
 
     private Dimension d2;
 
+    /**
+     *
+     * @param rectangles
+     * @param d1 first dimension
+     * @param d2 second dimension
+     */
     public Root(Rectangle[] rectangles, Dimension d1, Dimension d2) {
         this.rectangles = rectangles;
         this.d1 = d1;
@@ -28,21 +34,25 @@ public class Root {
 
     }
 
+    /**
+     *
+     * @return the different possibilies of NonOverlap rectangles
+     */
     public List<List<Possibility>> executeRoot(){
         List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
+        //execute the nonOverLap for the first time
         Launch launch = new Launch(rectangles,d1,d2);
         try {
             launch.execute();
         } catch (Exception e) {
-           // e.printStackTrace();
+
         }
         Rectangle rectangle = rectangles[0];
         int max = rectangle.getPlacementDomain().getPlacement(d1).getMax();
         int min = rectangle.getPlacementDomain().getPlacement(d1).getMin();
 
         for(int i =min; i<=max; i++){
-          // System.out.println("rectangles[0].getName() = " + rectangles[0].getName());
-            //System.out.println("d1 = " + d1);
+
             Rectangle[] rectanglesTmp = new Rectangle[rectangles.length];
             for(int j=0; j<rectangles.length; j++){
                 rectanglesTmp[j] = new Rectangle(rectangles[j]);

@@ -5,19 +5,26 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by math.herbert on 13/10/14.
+ * PlacementDomain is composed of Dimension and InternalValuesPlacementDomain
  */
 public class PlacementDomain {
 
     private HashMap<Dimension, InternalValuesPlacementDomain> placements;
     private Dimension d1;
     private Dimension d2;
+
+
     public PlacementDomain(HashMap<Dimension, InternalValuesPlacementDomain> placements, Dimension d1, Dimension d2) {
 
         this.placements = placements;
         this.d1 = d1;
         this.d2 = d2;
     }
+
+    /**
+     * Clone another
+     * @param another
+     */
     public PlacementDomain(PlacementDomain another){
         this.d1 = another.d1;
         this.d2 = another.d2;
@@ -32,6 +39,9 @@ public class PlacementDomain {
         return placements.get(dimension);
     }
 
+    /**
+     * Swamp d1 and d2
+     */
     public  void swapDimensions(){
         Dimension tmp = d1;
         d1 = d2;

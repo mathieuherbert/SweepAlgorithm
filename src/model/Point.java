@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 17/10/14.
+ * A point with an external and an internal walues and a boolean if the point is possible
  */
 public class Point {
 

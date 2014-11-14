@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by math.herbert on 29/10/14.
+ * Internal Values for a Domain with a min and a max values
  */
 public class InternalValuesDomain {
     private int min;
