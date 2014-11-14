@@ -134,6 +134,8 @@ public class InversionTest {
             Root root = new Root(rectangles,Dimension.X, Dimension.Y);
             List<List<Possibility>> current = root.executeRoot();
             if(previous != null){
+                System.out.println("current.size() = " + current.size());
+                Print.printPossibilites(Verify.areNotInP2(current,previous));
                 assertTrue(Verify.samePossibilities(previous,current));
             }
             previous = current;

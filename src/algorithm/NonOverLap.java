@@ -18,7 +18,6 @@ public class NonOverLap {
     private boolean isMax;
     private Dimension external;
     private Dimension internal;
-
     public NonOverLap(Rectangle[] rectangles, boolean isMax, Dimension external, Dimension internal) {
         this.rectangles = rectangles;
         this.isMax = isMax;
@@ -26,40 +25,33 @@ public class NonOverLap {
         this.internal = internal;
     }
 
-
-    /*public void afficherRectangles(){
-        for(int i = 0; i<rectangles.length; i++){
-            System.out.println(rectangles[i].toString());
-        }
-    }*/
     public int execute()  {
         int c = 0;
         for(int i = 0; i<rectangles.length;i++){
-    //        System.out.println("i = " + i);
+            //init min or max the final walue
             rectangles[i].setFinalExternal(isMax?rectangles[i].getPlacementDomain().getPlacement(external).getMax():rectangles[i].getPlacementDomain().getPlacement(external).getMin());
-           // System.out.println("i : "+i+"  "+rectangles[i].getFinalExternal());
+
+            //create data about the current regtangle
             InternalValuesDomain externalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getPlacement(external).getMin(), rectangles[i].getPlacementDomain().getPlacement(external).getMax());
             InternalValuesDomain internalValues = new InternalValuesDomain(rectangles[i].getPlacementDomain().getPlacement(internal).getMin(), rectangles[i].getPlacementDomain().getPlacement(internal).getMax());
             HashMap<Dimension,InternalValuesDomain> dimensions= new HashMap<Dimension,InternalValuesDomain>();
             dimensions.put(external,externalValues);
             dimensions.put(internal,internalValues);
             Domain domain = new Domain(dimensions);
+            //create constraints of the current rectangles over the others
             List<Constraint> constraints = new ArrayList<Constraint>();
             for(int j =0; j<rectangles.length;j++){
 
                 if(j != i){
                     ForbiddenRegion forbiddenRegion = new ForbiddenRegion();
-              //      System.out.println("rectangles["+j+"].getPlacementDomain() " + rectangles[j].getPlacementDomain());
-               //     System.out.println("rectangles["+i+"].getPlacementDomain().getWidth() " + rectangles[i].getPlacementDomain().getPlacement(external).getWidth());
-               //     System.out.println("rectangles["+i+"].getPlacementDomain().getHeight() " + rectangles[i].getPlacementDomain().getPlacement(internal).getWidth());
                     forbiddenRegion.computeForbiddenRegion(rectangles[j].getPlacementDomain(), rectangles[i].getPlacementDomain().getPlacement(external).getWidth(), rectangles[i].getPlacementDomain().getPlacement(internal).getWidth());
                     Constraint constraint = new Constraint(domain, ""+i+" "+j);
                     constraint.addForbiddenRegion(forbiddenRegion);
-                  //  System.out.println(constraint);
                     constraints.add(constraint);
                 }
 
             }
+            //if the rectangle is on a forbidden region we need to use sweep algorithm
             if(checkIfInForbiddenRegion(domain.getValue(external,isMax), rectangles[i].getWitness(), constraints)){
                 DataStructure structure = new DataStructure(constraints, domain);
                 Sweep sweep = new Sweep(structure, internal, external,isMax);

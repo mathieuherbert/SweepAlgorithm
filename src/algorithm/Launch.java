@@ -8,7 +8,6 @@ import sun.launcher.resources.launcher;
  * Created by math.herbert on 30/10/14.
  */
 public class Launch {
-    public static int LAUNCH = 0;
     private Rectangle[] rectangles;
 
     private Dimension d1;
@@ -20,30 +19,23 @@ public class Launch {
         this.d1 = d1;
         this.d2 = d2;
     }
-/*    public void afficherRectangles(){
-        for(int i = 0; i<rectangles.length; i++){
-            System.out.println(rectangles[i].toString());
-        }
-    }*/
+
     public void execute() throws Exception {
-        LAUNCH++;
         int c = Integer.MAX_VALUE;
-  //      afficherRectangles();
+
         int tmp = 0;
+        //while there are modifications we use NonOverLap over the four bounds
         while(c != 0){
             c = 0;
-    /*        System.out.println("NonOverLapLeft");
-            System.out.println("d1 = " + d1);
-            System.out.println("d2 = " + d2);
-*/
+
             NonOverLap nonOverLap = new NonOverLap(rectangles,false,d1,d2);
             tmp = nonOverLap.execute();
             if(tmp == Integer.MAX_VALUE){
                 throw new Exception("Impossible to place");
             }
             c += tmp;
-  //          System.out.println("c = " + c);
-  /*          afficherRectangles();*/
+
+
 //            System.out.println("NonOverLapRight");
             nonOverLap = new NonOverLap(rectangles,true,d1,d2);
             tmp = nonOverLap.execute();
@@ -51,30 +43,24 @@ public class Launch {
                 throw new Exception("Impossible to place");
             }
             c += tmp;
-            //afficherRectangles();
             for(Rectangle rectangle : rectangles){
                 rectangle.getPlacementDomain().swapDimensions();
             }
-            //System.out.println("NonOverLapBottom");
             nonOverLap = new NonOverLap(rectangles,false,d2,d1);
             tmp = nonOverLap.execute();
             if(tmp == Integer.MAX_VALUE){
                 throw new Exception("Impossible to place");
             }
             c += tmp;
-            //afficherRectangles();
-            //System.out.println("NonOverLapTop");
             nonOverLap = new NonOverLap(rectangles,true,d2,d1);
             tmp = nonOverLap.execute();
             if(tmp == Integer.MAX_VALUE){
                 throw new Exception("Impossible to place");
             }
             c += tmp;
-            //afficherRectangles();
             for(Rectangle rectangle : rectangles){
                 rectangle.getPlacementDomain().swapDimensions();
             }
-            //System.out.println("finalc = " + c);
         }
     }
     public Rectangle[] getRectangles() {

@@ -56,11 +56,11 @@ public class LaunchTest {
         Rectangle r5 = new Rectangle(p5, "Rectangle 5");
 
         Rectangle rectangles[] = new Rectangle[5];
-        rectangles[0] = r1;
-        rectangles[1] = r2;
-        rectangles[2] = r3;
-        rectangles[3] = r4;
-        rectangles[4] = r5;
+        rectangles[0] = r5;
+        rectangles[1] = r1;
+        rectangles[2] = r2;
+        rectangles[3] = r3;
+        rectangles[4] = r4;
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
         Print.printPossibilites(root.executeRoot());
     }

@@ -8,15 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by math.herbert on 14/11/14.
+ * A basic algorithm to compute NonOverLap rectangles
  */
 public class BasicAlgorithm {
-
+    /**
+     *
+     * @param rectangles list of rectangles to compute
+     * @return the list of possibilities of correct positions
+     */
     public List<List<Possibility>> basicAlgorithm(Rectangle rectangles[]){
         return getPossibilities(rectangles, new ArrayList<Possibility>(), -1);
     }
 
-    public List<List<Possibility>> getPossibilities(Rectangle rectangles[], List<Possibility> beginning, int current){
+    /**
+     *
+      * @param rectangles list of rectangles to compute
+     * @param beginning the possibilities in which rectangles are already fixed
+     * @param current the current recantgle to fix
+     * @return the list of possibilities of correct positions
+     */
+    private List<List<Possibility>> getPossibilities(Rectangle rectangles[], List<Possibility> beginning, int current){
         List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
         current++;
         Dimension d1 = rectangles[current].getPlacementDomain().getD1();

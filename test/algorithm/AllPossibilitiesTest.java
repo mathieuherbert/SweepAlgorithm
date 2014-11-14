@@ -143,7 +143,7 @@ public class AllPossibilitiesTest {
         System.out.println("Rapport : " + ((finalTimeB-startTimeB)/(finalTime-startTime)));
 
         System.out.println("algo.size() = " + algo.size());
-        System.out.println("Launch.LAUNCH = " + Launch.LAUNCH);
+
         assertTrue(Verify.samePossibilities(sauvage, algo));
     }
 
