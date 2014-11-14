@@ -2,12 +2,13 @@ package algorithm;
 
 import model.Dimension;
 import model.Rectangle;
+import sun.launcher.resources.launcher;
 
 /**
  * Created by math.herbert on 30/10/14.
  */
 public class Launch {
-
+    public static int LAUNCH = 0;
     private Rectangle[] rectangles;
 
     private Dimension d1;
@@ -25,6 +26,7 @@ public class Launch {
         }
     }*/
     public void execute() throws Exception {
+        LAUNCH++;
         int c = Integer.MAX_VALUE;
   //      afficherRectangles();
         int tmp = 0;

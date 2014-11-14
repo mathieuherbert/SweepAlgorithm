@@ -34,7 +34,7 @@ public class Root {
         try {
             launch.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         Rectangle rectangle = rectangles[0];
         int max = rectangle.getPlacementDomain().getPlacement(d1).getMax();

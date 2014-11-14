@@ -3,6 +3,7 @@ package algorithm;
 import model.*;
 import org.junit.Test;
 import tree.Root;
+import util.BasicAlgorithm;
 import util.Print;
 import util.Verify;
 
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class AllPossibilitiesTest {
 
-    @Test
+/*    @Test
     public void bigBigTest(){
         int nbRectangles =5;
 
@@ -58,7 +59,7 @@ public class AllPossibilitiesTest {
         System.out.flush();
         System.out.println(algo.size());
         long startTimeB = System.nanoTime();
-        sauvage = basicAlgorithm(rectanglesInit[0]);
+        sauvage = new BasicAlgorithm().basicAlgorithm(rectanglesInit[0]);
         long finalTimeB = System.nanoTime();
         System.out.println("Basic : "+ (finalTimeB-startTimeB));
         System.out.println(sauvage.size());
@@ -69,7 +70,7 @@ public class AllPossibilitiesTest {
         }
 
         //assertTrue(Verify.samePossibilities(sauvage, algo));
-    }
+    }*/
 
 
     @Test
@@ -131,7 +132,7 @@ public class AllPossibilitiesTest {
 
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
         long startTime = System.nanoTime();
-        List<List<Possibility>> sauvage = basicAlgorithm(rectanglesBasic);
+        List<List<Possibility>> sauvage = new BasicAlgorithm().basicAlgorithm(rectanglesBasic);
         long finalTime = System.nanoTime();
         System.out.println("Basic : "+ (finalTime-startTime));
         long startTimeB = System.nanoTime();
@@ -139,12 +140,8 @@ public class AllPossibilitiesTest {
         long finalTimeB = System.nanoTime();
         System.out.println("Algo : "+ (finalTimeB-startTimeB));
 
-        try {
-           Print.printPossibilites(Verify.areNotInP2(sauvage, algo));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        System.out.println("algo.size() = " + algo.size());
+        System.out.println("Launch.LAUNCH = " + Launch.LAUNCH);
         assertTrue(Verify.samePossibilities(sauvage, algo));
     }
 
@@ -182,7 +179,7 @@ public class AllPossibilitiesTest {
 
         Root root = new Root(rectanglesInit,Dimension.X, Dimension.Y);
         long startTime = System.nanoTime();
-        List<List<Possibility>> sauvage = basicAlgorithm(rectanglesInit);
+        List<List<Possibility>> sauvage = new BasicAlgorithm().basicAlgorithm(rectanglesInit);
         long finalTime = System.nanoTime();
         System.out.println("Basic : "+ (finalTime-startTime));
         startTime = System.nanoTime();
@@ -196,65 +193,6 @@ public class AllPossibilitiesTest {
         }
        assertTrue(Verify.samePossibilities(sauvage,algo));
     }
-    public List<List<Possibility>> basicAlgorithm(Rectangle rectangles[]){
-        return getPossibilities(rectangles, new ArrayList<Possibility>(), -1);
-    }
 
-    public List<List<Possibility>> getPossibilities(Rectangle rectangles[], List<Possibility> beginning, int current){
-        List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
-        current++;
-        Dimension d1 = rectangles[current].getPlacementDomain().getD1();
-        Dimension d2 = rectangles[current].getPlacementDomain().getD2();
-        int d1Min = rectangles[current].getPlacementDomain().getPlacement(d1).getMin();
-        int d1Max = rectangles[current].getPlacementDomain().getPlacement(d1).getMax();
-        int d1width = rectangles[current].getPlacementDomain().getPlacement(d1).getWidth();
-        int d2Min = rectangles[current].getPlacementDomain().getPlacement(d2).getMin();
-        int d2Max = rectangles[current].getPlacementDomain().getPlacement(d2).getMax();
-        int d2width = rectangles[current].getPlacementDomain().getPlacement(d2).getWidth();
-        for(int i = d1Min; i<=d1Max; i++){
-            for(int j = d2Min; j<=d2Max; j++){
-                Possibility tmp = new Possibility(
-                        rectangles[current].getName(),d1, i,d1width,
-                        d2, j,d2width);
-                boolean nonOverlap = true;
-                for(int k = 0; k<beginning.size(); k++){
-                    if(overlap(beginning.get(k), tmp)){
-                        nonOverlap = false;
-                        break;
-                    }
-                }
-                if(nonOverlap == false){
-                    continue;
-                //new possibility is a valid possibility
-                }else {
-                    List<Possibility> currentPossibilities = new ArrayList<Possibility>();
-                    for(int k = 0; k<beginning.size(); k++){
-                        currentPossibilities.add(new Possibility(beginning.get(k)));
-                    }
-                    currentPossibilities.add(tmp);
-                    if(current == rectangles.length-1){
-                        possibilities.add(currentPossibilities);
-                    }else{
-                        possibilities.addAll(getPossibilities(rectangles, currentPossibilities, current));
-                    }
-                }
-            }
-        }
-        return possibilities;
-    }
-
-    public static boolean overlap(Possibility possibilityPlaced, Possibility toPlaced )
-    {
-            // If one rectangle is on right side of other
-            if (toPlaced.getD1Value() > possibilityPlaced.getD1Value()+possibilityPlaced.getD1Width()-1 || possibilityPlaced.getD1Value() > toPlaced.getD1Value()+toPlaced.getD1Width()-1 )
-                return false;
-
-            // If one rectangle is above other
-            if (toPlaced.getD2Value() > possibilityPlaced.getD2Value()+possibilityPlaced.getD2Width()-1 || possibilityPlaced.getD2Value() > toPlaced.getD2Value()+toPlaced.getD2Width()-1 )
-                return false;
-
-
-            return true;
-    }
 
 }

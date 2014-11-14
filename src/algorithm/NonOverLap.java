@@ -14,7 +14,6 @@ import java.util.List;
  * Created by math.herbert on 29/10/14.
  */
 public class NonOverLap {
-
     private Rectangle[] rectangles;
     private boolean isMax;
     private Dimension external;
