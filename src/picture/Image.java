@@ -1,17 +1,14 @@
 package picture;
 
 import model.Possibility;
-import model.Rectangle;
 
 import javax.imageio.*;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.FileImageOutputStream;
-import javax.imageio.stream.ImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +29,10 @@ public class Image {
     private ImageWriteParam imageWriteParam;
     private IIOMetadata imageMetaData;
 
+    /**
+     * Constructor Image
+     * @param possibilities
+     */
     public Image(List<List<Possibility>> possibilities) {
         this.coloredPossibilities = new ArrayList<List<ColoredPossibility>>();
         List<Integer> listeCouleur = new ArrayList<Integer>();
@@ -49,6 +50,13 @@ public class Image {
         }
     }
 
+    /**
+     * Image Generator
+     * @param folderName
+     * @param domainWidth
+     * @param domainHeight
+     * @throws IOException
+     */
     public void generateImage(String folderName,int domainWidth, int domainHeight) throws IOException {
         File dir = new File("Images/"+folderName);
         dir.mkdir();
@@ -57,37 +65,36 @@ public class Image {
         initialisation(grid);
         saveImage(grid,"./Images/"+folderName+"/grid");
         this.listImage = new ArrayList<BufferedImage>();
-
-        try {
-            initialiserGif(500, folderName);
-        } catch (IIOException e) {
-            e.printStackTrace();
-        }
+        initialiserGif(500, folderName);
 
         for(int i = 0; i < this.coloredPossibilities.size(); i++){
             BufferedImage image = openGrid(folderName);
-
             for(ColoredPossibility coloredPossibility : this.coloredPossibilities.get(i)){
                 this.drawPossibility(coloredPossibility, image);
             }
-            //this.saveImage(image,fileName+i);
-            //this.listImage.add(image);
             writeToSequence(image);
-            System.out.println(i);
         }
         gifWriter.endWriteSequence();
 }
 
+    /**
+     * Initialisation de la grille
+     * @param image
+     * @return
+     */
     private static BufferedImage initialisation(BufferedImage image){
         for(int i = 0 ; i < image.getWidth(); i++){
             for(int j = 0; j < image.getHeight(); j++){
+                // Contour de la grille
                 if(i == 0 || i == 1 || i == image.getWidth()-1 || i == image.getWidth()-2
                         ||j == 0 || j == 1 || j == image.getHeight()-2 || j== image.getHeight()-1 ){
                     image.setRGB(i,j,BLACK);
                 }
+                // Contour intérieurs de la grille
                 else if(i%120 == 0 || i%120 == 1 || j%120 ==0 || j%120 == 1){
                     image.setRGB(i,j,BLACK);
                 }
+                // Case de la grille
                 else{
                     image.setRGB(i,j,WHITE);
                 }
@@ -96,6 +103,12 @@ public class Image {
         return image;
     }
 
+    /**
+     * Dessine les possibilités dans une image
+     * @param coloredPossibility
+     * @param image
+     * @return
+     */
     private BufferedImage drawPossibility(ColoredPossibility coloredPossibility,BufferedImage image){
         int x = coloredPossibility.getPossibility().getD1Value() * MULTIPLICATEUR * 12 +  2 ;
         int y = image.getHeight() - coloredPossibility.getPossibility().getD2Value() * MULTIPLICATEUR * 12 -  3 ;
@@ -110,6 +123,11 @@ public class Image {
         return image;
     }
 
+    /**
+     * Sauvegarde de l'image
+     * @param image
+     * @param fileName
+     */
     private void saveImage(BufferedImage image, String fileName){
         File outputfile = new File(fileName+".jpg");
         try {
@@ -119,6 +137,11 @@ public class Image {
         }
     }
 
+    /**
+     * Ouverture de la grille
+     * @param folderName
+     * @return
+     */
     private BufferedImage openGrid(String folderName){
         try {
             return ImageIO.read(new File("./Images/" + folderName + "/grid.jpg"));
@@ -128,6 +151,12 @@ public class Image {
         return null;
     }
 
+    /**
+     * Initialisation du GIF
+     * @param timeBetweenFramesMS
+     * @param folderName
+     * @throws IOException
+     */
     private void initialiserGif(int timeBetweenFramesMS, String folderName) throws IOException {
         Iterator<ImageWriter> iter = ImageIO.getImageWritersBySuffix("gif");
         if(!iter.hasNext()) {
@@ -140,6 +169,7 @@ public class Image {
         ImageTypeSpecifier imageTypeSpecifier =
                 ImageTypeSpecifier.createFromBufferedImageType(5);
 
+        // Initialisation des metadatas
         imageMetaData =
                 gifWriter.getDefaultImageMetadata(imageTypeSpecifier,
                         imageWriteParam);
@@ -189,6 +219,12 @@ public class Image {
         gifWriter.prepareWriteSequence(null);
     }
 
+    /**
+     * Récupération des metadatas
+     * @param rootNode
+     * @param nodeName
+     * @return
+     */
     private static IIOMetadataNode getNode(
             IIOMetadataNode rootNode,
             String nodeName) {
@@ -204,6 +240,11 @@ public class Image {
         return(node);
     }
 
+    /**
+     * Ecriture des tiles du GIF
+     * @param img
+     * @throws IOException
+     */
     public void writeToSequence(RenderedImage img) throws IOException {
         gifWriter.writeToSequence(
                 new IIOImage(

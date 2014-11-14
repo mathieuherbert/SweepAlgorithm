@@ -12,6 +12,11 @@ public class ColoredPossibility {
 
     private int rgb;
 
+    /**
+     * Constructeur de possibilités colorées
+     * @param possibility
+     * @param rgb
+     */
     public ColoredPossibility(Possibility possibility, int rgb) {
         this.possibility = possibility;
         this.rgb = rgb;

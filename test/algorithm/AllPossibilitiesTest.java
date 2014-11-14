@@ -18,9 +18,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class AllPossibilitiesTest {
 
-/*    @Test
+    /*@Test
     public void bigBigTest(){
-        int nbRectangles =5;
+        int nbRectangles =10;
 
 
         Rectangle[][] rectanglesInit = new Rectangle[2][];
@@ -52,17 +52,18 @@ public class AllPossibilitiesTest {
         Root root = new Root(rectanglesInit[1],Dimension.X, Dimension.Y);
         long startTime = System.nanoTime();
         List<List<Possibility>> sauvage = null;
-        List<List<Possibility>> algo = root.executeRoot();
+       // List<List<Possibility>> algo = root.executeRoot();
 
         long finalTime = System.nanoTime();
         System.out.println("Algo : "+ (finalTime-startTime));
         System.out.flush();
-        System.out.println(algo.size());
+        //System.out.println(algo.size());
         long startTimeB = System.nanoTime();
         sauvage = new BasicAlgorithm().basicAlgorithm(rectanglesInit[0]);
         long finalTimeB = System.nanoTime();
         System.out.println("Basic : "+ (finalTimeB-startTimeB));
-        System.out.println(sauvage.size());
+        //System.out.println(sauvage.size());
+        System.out.println("Rapport : " + ((finalTime-startTime)/(finalTimeB-startTimeB)));
         try {
       //      Print.printPossibilites(Verify.areNotInP2(sauvage, algo));
         } catch (Exception e) {
@@ -139,6 +140,7 @@ public class AllPossibilitiesTest {
         List<List<Possibility>> algo = root.executeRoot();
         long finalTimeB = System.nanoTime();
         System.out.println("Algo : "+ (finalTimeB-startTimeB));
+        System.out.println("Rapport : " + ((finalTimeB-startTimeB)/(finalTime-startTime)));
 
         System.out.println("algo.size() = " + algo.size());
         System.out.println("Launch.LAUNCH = " + Launch.LAUNCH);
