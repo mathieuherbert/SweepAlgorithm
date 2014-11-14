@@ -1,7 +1,9 @@
 package util;
 
 import model.Possibility;
+import picture.Image;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,6 +19,14 @@ public class Print {
                 System.out.println("possibility = " + possibility);
             }
             count++;
+        }
+    }
+    public static void printImagePossibilites(List<List<Possibility>> possibilities, String folderName,int sizeX, int sizeY ) {
+        Image image = new Image(possibilities);
+        try {
+            image.generateImage(folderName,sizeX,sizeY);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
