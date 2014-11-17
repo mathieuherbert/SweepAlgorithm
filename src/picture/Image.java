@@ -72,6 +72,7 @@ public class Image {
             for(ColoredPossibility coloredPossibility : this.coloredPossibilities.get(i)){
                 this.drawPossibility(coloredPossibility, image);
             }
+            //saveImage(image,fileName+i);
             writeToSequence(image);
         }
         gifWriter.endWriteSequence();

@@ -40,6 +40,10 @@ public class Root {
      */
     public List<List<Possibility>> executeRoot(){
         List<List<Possibility>> possibilities = new ArrayList<List<Possibility>>();
+
+        if(rectangles.length == 0){
+            return possibilities;
+        }
         //execute the nonOverLap for the first time
         Launch launch = new Launch(rectangles,d1,d2);
         try {
