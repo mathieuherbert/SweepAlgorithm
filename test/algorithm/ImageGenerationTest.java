@@ -55,7 +55,8 @@ public class ImageGenerationTest {
         Print.printImagePossibilites(algo,"basicTest",5,11);
     }
 
-    @Test
+    //Ce test prend 10 minutes à générer le gif
+    //@Test
     public void bigTest(){
 
         InternalValuesPlacementDomain ivp11 = new InternalValuesPlacementDomain(1,4,2);
