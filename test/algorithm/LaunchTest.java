@@ -3,10 +3,14 @@ package algorithm;
 import model.*;
 import org.junit.Test;
 import tree.Root;
+import util.BasicAlgorithm;
 import util.Print;
+import util.Verify;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by math.herbert on 30/10/14.
@@ -62,7 +66,9 @@ public class LaunchTest {
         rectangles[3] = r3;
         rectangles[4] = r4;
         Root root = new Root(rectangles,Dimension.X, Dimension.Y);
-        Print.printPossibilites(root.executeRoot());
+
+        BasicAlgorithm basic = new BasicAlgorithm();
+        assertTrue(Verify.samePossibilities(root.executeRoot(), basic.basicAlgorithm(rectangles)));
     }
 
     @Test
@@ -99,7 +105,8 @@ public class LaunchTest {
 
             Root root = new Root(rectangles,Dimension.X,Dimension.Y);
             List<List<Possibility>> possibilities =  root.executeRoot();
-            Print.printPossibilites(possibilities);
+            BasicAlgorithm basicAlgorithm = new BasicAlgorithm();
+        assertTrue(Verify.samePossibilities(possibilities, basicAlgorithm.basicAlgorithm(rectangles)));
 
     }
 }
